@@ -1,9 +1,44 @@
-﻿using Microsoft.Extensions.Configuration;
+﻿using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.IdentityModel.Tokens;
+using System.Text;
+using UrlShortener.Domain.Entities;
+using UrlShortener.Domain.Services;
+using UrlShortener.Persistence.Database;
 
 namespace UrlShortener.Persistence;
 public static class DependencyInjection {
     public static IServiceCollection AddPersistenceServices(this IServiceCollection services, IConfiguration configuration) {
+
+        services.AddDbContext<ApplicationDbContext>(options => options.UseSqlServer("TODO"));
+
+        services.AddIdentityCore<User>().AddEntityFrameworkStores<ApplicationDbContext>().AddDefaultTokenProviders();
+
+        services.AddAuthentication(options => {
+            options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+            options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+            options.DefaultScheme = JwtBearerDefaults.AuthenticationScheme;
+        })
+        .AddJwtBearer(options => {
+            options.SaveToken = true;
+            options.RequireHttpsMetadata = true;
+            options.TokenValidationParameters = new TokenValidationParameters() {
+                ValidateIssuer = true,
+                ValidateAudience = true,
+                ValidateLifetime = true,
+                ValidateIssuerSigningKey = true,
+                ClockSkew = TimeSpan.FromSeconds(5),
+
+                ValidAudience = "TODO",
+                ValidIssuer = "TODO",
+                IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes("TODO"))
+            };
+        });
+
+        services.AddScoped<IApplicationDbContext, ApplicationDbContext>();
 
         return services;
     }
