@@ -17,8 +17,15 @@ public class Error : IEquatable<Error> {
 
     //User
     public static readonly Error UserAlreadyExists = new("Error.UserAlreadyExists", "The user already exisit!", 409);
+    public static readonly Error UserNotFound = new("Error.UserNotFound", "The user is not found!", 404);
     public static readonly Error RegistrationFailed = new("Error.RegistrationFailed", "The user registration failed!", 500);
     public static readonly Error LoginFailed = new("Error.LoginFailed", "Invalid Credentials!", 409);
+
+    //Url
+    public static readonly Error UrlAlreadyExists = new("Error.UrlAlreadyExists", "The url is already registered!", 409);
+    public static readonly Error UrlBlocked = new("Error.UrlBlocked", "This url is blocked because fo security reasons!", 403);
+    public static readonly Error UrlNotFound = new("Error.UrlNotFound", "This url was not found!", 404);
+
 
     public Error(string code, string message, int statusCode) {
         Code = code;

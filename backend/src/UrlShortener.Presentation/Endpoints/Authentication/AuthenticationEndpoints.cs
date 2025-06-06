@@ -17,11 +17,11 @@ public class AuthenticationEndpoints : CarterModule {
         app.MapPost("/register", async (UserAuthRequest userAuthRequest, ISender sender) => {
             var result = await sender.Send(new RegisterRequest(userAuthRequest.UserName, userAuthRequest.Password));
             return result.ToIResult();
-        });
+        }).AllowAnonymous();
 
         app.MapPost("/login", async (UserAuthRequest userAuthRequest, ISender sender) => {
             var result = await sender.Send(new LoginRequest(userAuthRequest.UserName, userAuthRequest.Password));
-            result.ToIResult();
-        });
+            return result.ToIResult();
+        }).AllowAnonymous();
     }
 }

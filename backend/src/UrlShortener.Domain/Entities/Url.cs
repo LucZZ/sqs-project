@@ -10,9 +10,10 @@ public class Url : EntityBase {
     public int UserId { get; set; }
     public User User { get; set; }
 
-    public Url(string originalUrl, string shortUrl) {
+    public Url(string originalUrl, string shortUrl, User user) {
         OriginalUrl = originalUrl;
         ShortUrl = shortUrl;
+        User = user;
     }
 
     private Url() { }

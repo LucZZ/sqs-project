@@ -43,6 +43,8 @@ public static class DependencyInjection {
             };
         });
 
+        services.AddAuthorization();
+
         services.AddScoped<IApplicationDbContext, ApplicationDbContext>();
 
         return services;

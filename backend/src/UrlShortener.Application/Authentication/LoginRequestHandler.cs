@@ -27,7 +27,7 @@ internal class LoginRequestHandler(UserManager<User> _userManager, TimeProvider 
             new Claim(ClaimTypes.Name, user.UserName ?? "")
         };
 
-        var expires = _timeProvider.GetUtcNow().UtcDateTime.AddHours(1);
+        var expires = _timeProvider.GetUtcNow().UtcDateTime.AddMinutes(_jwtOptions.Value.AccessTokenExpirationInMinutes);
 
         var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_jwtOptions.Value.JWTSecret));
         var token = new JwtSecurityToken(

@@ -24,10 +24,14 @@ builder.Services.AddCarter();
 
 var app = builder.Build();
 
+app.UseHttpsRedirection();
+
+app.UseAuthentication();
+
+app.UseAuthorization();
+
 app.MapOpenApi();
 
 app.MapCarter();
-
-app.UseHttpsRedirection();
 
 app.Run();
