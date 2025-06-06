@@ -5,6 +5,8 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
+using UrlShortener.Domain.Base.Extensions;
+using UrlShortener.Domain.Base.Options;
 using UrlShortener.Domain.Entities;
 using UrlShortener.Domain.Services;
 using UrlShortener.Persistence.Database;
@@ -13,7 +15,10 @@ namespace UrlShortener.Persistence;
 public static class DependencyInjection {
     public static IServiceCollection AddPersistenceServices(this IServiceCollection services, IConfiguration configuration) {
 
-        services.AddDbContext<ApplicationDbContext>(options => options.UseSqlServer("TODO"));
+        var jwtOptions = configuration.GetOptions<JWTOptions>(JWTOptions.SectionName);
+        var databaseOptions = configuration.GetOptions<DatabaseOptions>(DatabaseOptions.SectionName);
+
+        services.AddDbContext<ApplicationDbContext>(options => options.UseSqlServer(databaseOptions.ConnectionString));
 
         services.AddIdentityCore<User>().AddEntityFrameworkStores<ApplicationDbContext>().AddDefaultTokenProviders();
 
@@ -32,9 +37,9 @@ public static class DependencyInjection {
                 ValidateIssuerSigningKey = true,
                 ClockSkew = TimeSpan.FromSeconds(5),
 
-                ValidAudience = "TODO",
-                ValidIssuer = "TODO",
-                IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes("TODO"))
+                ValidAudience = jwtOptions.ValidAudience,
+                ValidIssuer = jwtOptions.ValidIssuer,
+                IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(jwtOptions.JWTSecret))
             };
         });
 

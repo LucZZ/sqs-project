@@ -1,9 +1,11 @@
 ﻿using MediatR;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
+using UrlShortener.Domain.Base.Options;
 using UrlShortener.Domain.Base.Result;
 using UrlShortener.Domain.DTOs.Output;
 using UrlShortener.Domain.Entities;
@@ -12,7 +14,7 @@ namespace UrlShortener.Application.Authentication;
 
 public record LoginRequest(string UserName, string Password) : IRequest<Result<TokenResponse>>;
 
-internal class LoginRequestHandler(UserManager<User> _userManager, TimeProvider _timeProvider) : IRequestHandler<LoginRequest, Result<TokenResponse>> {
+internal class LoginRequestHandler(UserManager<User> _userManager, TimeProvider _timeProvider, IOptions<JWTOptions> _jwtOptions) : IRequestHandler<LoginRequest, Result<TokenResponse>> {
     public async Task<Result<TokenResponse>> Handle(LoginRequest request, CancellationToken cancellationToken) {
         var user = await _userManager.FindByNameAsync(request.UserName);
         if(user is null || !await _userManager.CheckPasswordAsync(user, request.Password)) {
@@ -27,12 +29,12 @@ internal class LoginRequestHandler(UserManager<User> _userManager, TimeProvider 
 
         var expires = _timeProvider.GetUtcNow().UtcDateTime.AddHours(1);
 
-        var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes("TODO"));
+        var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_jwtOptions.Value.JWTSecret));
         var token = new JwtSecurityToken(
-            issuer: "TODO",
-            audience: "TODO",
+            issuer: _jwtOptions.Value.ValidIssuer,
+            audience: _jwtOptions.Value.ValidAudience,
             claims: claims,
-            expires: expires, //TODO
+            expires: expires,
             signingCredentials: new SigningCredentials(key, SecurityAlgorithms.HmacSha256));
 
         return Result.Success(new TokenResponse(new JwtSecurityTokenHandler().WriteToken(token), (expires - _timeProvider.GetUtcNow().UtcDateTime).Seconds - 5);
