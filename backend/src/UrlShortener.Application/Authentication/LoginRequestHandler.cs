@@ -14,7 +14,7 @@ namespace UrlShortener.Application.Authentication;
 
 public record LoginRequest(string UserName, string Password) : IRequest<Result<TokenResponse>>;
 
-internal class LoginRequestHandler(UserManager<User> _userManager, TimeProvider _timeProvider, IOptions<JWTOptions> _jwtOptions) : IRequestHandler<LoginRequest, Result<TokenResponse>> {
+internal class LoginRequestHandler(UserManager<User> _userManager, TimeProvider _timeProvider, IOptions<JwtOptions> _jwtOptions) : IRequestHandler<LoginRequest, Result<TokenResponse>> {
     public async Task<Result<TokenResponse>> Handle(LoginRequest request, CancellationToken cancellationToken) {
         var user = await _userManager.FindByNameAsync(request.UserName);
         if(user is null || !await _userManager.CheckPasswordAsync(user, request.Password)) {

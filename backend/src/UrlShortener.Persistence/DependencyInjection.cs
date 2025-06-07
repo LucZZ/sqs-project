@@ -15,7 +15,7 @@ namespace UrlShortener.Persistence;
 public static class DependencyInjection {
     public static IServiceCollection AddPersistenceServices(this IServiceCollection services, IConfiguration configuration) {
 
-        var jwtOptions = configuration.GetOptions<JWTOptions>(JWTOptions.SectionName);
+        var jwtOptions = configuration.GetOptions<JwtOptions>(JwtOptions.SectionName);
         var databaseOptions = configuration.GetOptions<DatabaseOptions>(DatabaseOptions.SectionName);
 
         services.AddDbContext<ApplicationDbContext>(options => options.UseSqlServer(databaseOptions.ConnectionString));

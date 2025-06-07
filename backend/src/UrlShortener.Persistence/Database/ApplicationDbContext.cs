@@ -18,10 +18,10 @@ public sealed class ApplicationDbContext : IdentityDbContext<User, IdentityRole<
         configurationBuilder.Properties<DateTime>().HaveConversion<UtcDateTimeConverter>();
     }
 
-    protected override void OnModelCreating(ModelBuilder modelBuilder) {
-        base.OnModelCreating(modelBuilder);
-        modelBuilder.HasDefaultSchema("app");
-        modelBuilder.Entity<Url>()
+    protected override void OnModelCreating(ModelBuilder builder) {
+        base.OnModelCreating(builder);
+        builder.HasDefaultSchema("app");
+        builder.Entity<Url>()
             .HasOne(u => u.User)
             .WithMany(u => u.Urls)
             .HasForeignKey(u => u.UserId);

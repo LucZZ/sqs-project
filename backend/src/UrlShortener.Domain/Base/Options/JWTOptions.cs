@@ -1,7 +1,7 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
 namespace UrlShortener.Domain.Base.Options;
-public class JWTOptions {
+public class JwtOptions {
 
     public const string SectionName = "JWTOptions";
 

@@ -10,12 +10,8 @@ public static class DatabaseMigrator {
 
     public static async Task MigrateDatabases(this WebApplication webApplication) {
 
-        //var webApiOptions = webApplication.Configuration.GetOptions<WebAPIOptions>(WebAPIOptions.SectionName);
-
-        //if (webApiOptions.USE_AUTO_MIGRATION && !webApiOptions.USE_IN_MEMORY_DATABASE) {
-            using var scope = webApplication.Services.CreateScope();
-            await scope.MigrateApplicationDatabase();
-        //}
+        using var scope = webApplication.Services.CreateScope();
+        await scope.MigrateApplicationDatabase();
     }
 
     private static async Task MigrateApplicationDatabase(this IServiceScope serviceScope) {
@@ -33,7 +29,7 @@ public static class DatabaseMigrator {
 
             logger.LogInformation("Last schema version: {lastAppliedMigration}", lastAppliedMigration);
         } catch (Exception ex) {
-            logger.LogWarning("Automatic migration was not successful! {Exception}", ex);
+            logger.LogWarning("Automatic migration was not successful! {ex}", ex);
             if (STOP_ON_ERROR) {
                 Environment.Exit(1);
             }
