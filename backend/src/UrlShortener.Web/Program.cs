@@ -10,7 +10,7 @@ using UrlShortener.Web.Extensions;
 var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddAndValidateOptions<DatabaseOptions>(builder.Configuration, DatabaseOptions.SectionName);
-builder.Services.AddAndValidateOptions<JWTOptions>(builder.Configuration, JWTOptions.SectionName)
+builder.Services.AddAndValidateOptions<JWTOptions>(builder.Configuration, JWTOptions.SectionName);
 
 builder.Services.AddDomainServices(builder.Configuration)
     .AddApplicationServices(builder.Configuration)

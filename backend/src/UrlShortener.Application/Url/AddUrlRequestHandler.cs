@@ -8,9 +8,8 @@ namespace UrlShortener.Application.Url;
 
 public record AddUrlRequest(string Url, string UserName) : IRequest<Result<UrlResponse>>;
 
-internal class AddUrlRequestHandler(IApplicationDbContext _applicationDbContext) : IRequestHandler<AddUrlRequest, Result<UrlResponse>> {
+internal class AddUrlRequestHandler(IApplicationDbContext _applicationDbContext, IVirusTotalService _virusTotalService) : IRequestHandler<AddUrlRequest, Result<UrlResponse>> {
     public async Task<Result<UrlResponse>> Handle(AddUrlRequest request, CancellationToken cancellationToken) {
-        //TODO check virus
 
         var urlExists = await _applicationDbContext.Urls
             .Include(u => u.User)
@@ -20,10 +19,10 @@ internal class AddUrlRequestHandler(IApplicationDbContext _applicationDbContext)
             return Result.Failure<UrlResponse>(Error.UrlAlreadyExists);
         }
 
-        var urlSave = true;
+        var urlSave = await _virusTotalService.CheckUrl(request.Url);
 
-        if(!urlSave) {
-            return Result.Failure<UrlResponse>(Error.UrlBlocked);
+        if(urlSave.IsFailure) {
+            return Result.Failure<UrlResponse>(urlSave.Errors);
         }
 
         var shorted = Guid.NewGuid().ToString("N");

@@ -14,15 +14,6 @@ public class Result<TValue> : Result {
         : base(isSuccess, errors) =>
         _value = value;
 
-    public Result<TValue> AdjustValue(Action<TValue> action) {
-        if (_value is not null) {
-            action(_value);
-        }
-        return this;
-    }
-
-    public Result<T> Map<T>() => IsSuccess ? new Result<T>(default, true, Error.None) : new Result<T>(default, false, this.Errors);
-
     public TValue? Value => IsSuccess
         ? _value!
         : default;

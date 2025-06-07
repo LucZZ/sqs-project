@@ -37,6 +37,6 @@ internal class LoginRequestHandler(UserManager<User> _userManager, TimeProvider 
             expires: expires,
             signingCredentials: new SigningCredentials(key, SecurityAlgorithms.HmacSha256));
 
-        return Result.Success(new TokenResponse(new JwtSecurityTokenHandler().WriteToken(token), (expires - _timeProvider.GetUtcNow().UtcDateTime).Seconds - 5);
+        return Result.Success(new TokenResponse(new JwtSecurityTokenHandler().WriteToken(token), (expires - _timeProvider.GetUtcNow().UtcDateTime).Seconds - 5));
     }
 }
