@@ -49,9 +49,6 @@ jobs:
     - name: Run Architecture Tests
       run: dotnet test ${{ env.Architecture_Tests_Project_Path }} --no-restore
       
-    - name: List installed .NET tools
-      run: dotnet tool list --global
-      
   # Job 3: Build, Test, and Run SonarQube Analysis
   build_and_analyze:
     runs-on: windows-latest
@@ -81,7 +78,7 @@ jobs:
 
     - name: Begin SonarQube analysis
       run: |
-        dotnet sonarscanner begin /k="sqs-project" /d:sonar.token="${{ secrets.SONARQUBE_TOKEN }}" /d:sonar.cs.opencover.reportsPaths="coverage.xml"
+        dotnet sonarscanner begin /key:"sqs-project" /d:sonar.token="${{ secrets.SONARQUBE_TOKEN }}" /d:sonar.cs.opencover.reportsPaths="coverage.xml"
 
     - name: Build the solution
       run: dotnet build ${{ env.Solution_Path }} --no-incremental --no-restore
