@@ -27,7 +27,7 @@ jobs:
         dotnet-version: '9.0.x'
 
     - name: Build the solution
-      run: dotnet build ${{ env.Solution_Path }} --no-incremental --no-restore
+      run: dotnet build ${{ env.Solution_Path }} --no-incremental
 
 # Job 2: Run Architecture Tests
   architecture_tests:
