@@ -33,8 +33,19 @@ jobs:
   architecture_tests:
     runs-on: windows-latest
     needs: build
-
+    
     steps:
+    
+    - name: Checkout repository
+      uses: actions/checkout@v4
+      with:
+        fetch-depth: 0
+
+    - name: Install .NET SDK
+      uses: actions/setup-dotnet@v4
+      with:
+        dotnet-version: '9.0.x'
+        
     - name: Run Architecture Tests
       run: dotnet test ${{ env.Architecture_Tests_Project_Path }} --no-restore
       
