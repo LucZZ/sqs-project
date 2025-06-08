@@ -29,7 +29,7 @@ public static class DatabaseMigrator {
 
             logger.LogInformation("Last schema version: {lastAppliedMigration}", lastAppliedMigration);
         } catch (Exception ex) {
-            logger.LogWarning("Automatic migration was not successful! {ex}", ex);
+            logger.LogCritical("Automatic migration was not successful! {ex}", ex);
             if (STOP_ON_ERROR) {
                 Environment.Exit(1);
             }
