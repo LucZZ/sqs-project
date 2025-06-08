@@ -78,7 +78,7 @@ jobs:
 
     - name: Begin SonarQube analysis
       run: |
-        dotnet sonarscanner begin /key:"sqs-project" /d:sonar.token="${{ secrets.SONARQUBE_TOKEN }}" /d:sonar.cs.opencover.reportsPaths="coverage.xml"
+        dotnet sonarscanner begin /key:"sqs-project" /d:sonar.token="${{ secrets.SONARQUBE_TOKEN }}" /d:sonar.cs.opencover.reportsPaths="coverage.xml" /o:"LucZZ"
 
     - name: Build the solution
       run: dotnet build ${{ env.Solution_Path }} --no-incremental --no-restore
