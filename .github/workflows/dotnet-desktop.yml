@@ -12,7 +12,7 @@ env:
 
 jobs:
   # Job 1: Install dependencies
-  install:
+  build:
     runs-on: windows-latest
 
     steps:
@@ -26,34 +26,16 @@ jobs:
       with:
         dotnet-version: '9.0.x'
 
-    - name: Install SonarScanner
-      run: |
-        dotnet tool install --global dotnet-sonarscanner
-
-    - name: Install Coverlet Console Tool
-      run: |
-        dotnet tool install --global coverlet.console
-
-    - name: Ensure dotnet tools are in PATH
-      run: |
-        echo "Adding dotnet tools to PATH"
-        $env:PATH += ";C:\Users\$env:USERNAME\.dotnet\tools"
-        echo $env:PATH
-        
-    - name: List installed .NET tools
-      run: dotnet tool list --global
+    - name: Build the solution
+      run: dotnet build ${{ env.Solution_Path }} --no-incremental --no-restore
 
 # Job 2: Run Architecture Tests
   architecture_tests:
     runs-on: windows-latest
-    needs: install  # Ensure dependencies are installed first
 
     steps:
-    - name: Checkout repository
-      uses: actions/checkout@v4
-
-    - name: Run Architecture Tests (no coverage)
-      run: dotnet test ${{ env.Architecture_Tests_Project_Path }} --no-build --no-restore
+    - name: Run Architecture Tests
+      run: dotnet test ${{ env.Architecture_Tests_Project_Path }} --no-restore
       
     - name: List installed .NET tools
       run: dotnet tool list --global
@@ -62,17 +44,22 @@ jobs:
   build_and_analyze:
     runs-on: windows-latest
     needs: architecture_tests  # Ensure dependencies are installed first
-
+    
     steps:
-    - name: Checkout repository
-      uses: actions/checkout@v4
+    - name: Install SonarScanner
+      run: |
+        dotnet tool install --global dotnet-sonarscanner
+
+    - name: Install Coverlet Console Tool
+      run: |
+        dotnet tool install --global coverlet.console
 
     - name: Restore dependencies
       run: dotnet restore ${{ env.Solution_Path }}
 
     - name: Begin SonarQube analysis
       run: |
-        dotnet-sonarscanner begin /k="sqs-project" /d:sonar.token="${{ secrets.SONARQUBE_TOKEN }}" /d:sonar.cs.opencover.reportsPaths="coverage.xml"
+        dotnet sonarscanner begin /k="sqs-project" /d:sonar.token="${{ secrets.SONARQUBE_TOKEN }}" /d:sonar.cs.opencover.reportsPaths="coverage.xml"
 
     - name: Build the solution
       run: dotnet build ${{ env.Solution_Path }} --no-incremental --no-restore
@@ -87,4 +74,4 @@ jobs:
 
     - name: End SonarQube analysis
       run: |
-        dotnet-sonarscanner end /d:sonar.token="${{ secrets.SONARQUBE_TOKEN }}"
+        dotnet sonarscanner end /d:sonar.token="${{ secrets.SONARQUBE_TOKEN }}"
