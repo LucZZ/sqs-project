@@ -85,7 +85,7 @@ jobs:
 
     - name: Run tests and collect code coverage
       run: |
-        coverlet ${{ env.Unit_Tests_Project_Path }}/bin/Debug/net9.0/UrlShortener.UnitTests.dll --target "dotnet" --targetargs "test --no-build" -f opencover -o coverage.xml
+        coverlet ${{ env.Unit_Tests_Project_Path }}/bin/Debug/net9.0/UrlShortener.UnitTests.dll --target "dotnet" --targetargs "test ${{ env.Unit_Tests_Project_Path }} --no-build" -f opencover -o coverage.xml
 
     - name: End SonarQube analysis
       run: |
