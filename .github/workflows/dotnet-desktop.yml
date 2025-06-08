@@ -28,11 +28,11 @@ jobs:
 
     - name: Install SonarScanner
       run: |
-        dotnet tool install --global dotnet-sonarscanner
+        dotnet tool install dotnet-sonarscanner
 
     - name: Install Coverlet Console Tool
       run: |
-        dotnet tool install --global coverlet.console
+        dotnet tool install coverlet.console
 
 # Job 2: Run Architecture Tests
   architecture_tests:
@@ -60,7 +60,7 @@ jobs:
 
     - name: Begin SonarQube analysis
       run: |
-        dotnet-sonarscanner begin /k="sqs-project" /d:sonar.token="${{ secrets.SONARQUBE_TOKEN }}" /d:sonar.cs.opencover.reportsPaths="coverage.xml"
+        dotnet tool run dotnet-sonarscanner begin /k="sqs-project" /d:sonar.token="${{ secrets.SONARQUBE_TOKEN }}" /d:sonar.cs.opencover.reportsPaths="coverage.xml"
 
 
     - name: Build the solution
@@ -68,7 +68,7 @@ jobs:
 
     - name: Run tests and collect code coverage
       run: |
-        coverlet ${{ env.Unit_Tests_Project_Path }}/bin/Debug/net9.0/UrlShortener.UnitTests.dll \
+        dotnet tool run coverlet ${{ env.Unit_Tests_Project_Path }}/bin/Debug/net9.0/UrlShortener.UnitTests.dll \
           --target "dotnet" \
           --targetargs "test --no-build" \
           -f opencover \
@@ -76,4 +76,4 @@ jobs:
 
     - name: End SonarQube analysis
       run: |
-        dotnet sonarscanner end /d:sonar.token="${{ secrets.SONARQUBE_TOKEN }}"
+        dotnet tool run dotnet-sonarscanner end /d:sonar.token="${{ secrets.SONARQUBE_TOKEN }}"
