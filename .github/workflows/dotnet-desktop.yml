@@ -39,6 +39,9 @@ jobs:
         echo "Adding dotnet tools to PATH"
         $env:PATH += ";C:\Users\$env:USERNAME\.dotnet\tools"
         echo $env:PATH
+        
+    - name: List installed .NET tools
+      run: dotnet tool list --global
 
 # Job 2: Run Architecture Tests
   architecture_tests:
@@ -51,6 +54,9 @@ jobs:
 
     - name: Run Architecture Tests (no coverage)
       run: dotnet test ${{ env.Architecture_Tests_Project_Path }} --no-build --no-restore
+      
+    - name: List installed .NET tools
+      run: dotnet tool list --global
       
   # Job 3: Build, Test, and Run SonarQube Analysis
   build_and_analyze:
