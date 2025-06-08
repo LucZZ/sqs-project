@@ -6,7 +6,7 @@ on:
 
 env:
   # Global Environment Variables
-  Solution_Path: backend/src/UrlShortener.sln
+  Solution_Path: backend/UrlShortener.sln
   Architecture_Tests_Project_Path: backend/tests/UrlShortener.ArchitectureTests
   Unit_Tests_Project_Path: backend/tests/UrlShortener.UnitTests
 
@@ -43,18 +43,13 @@ jobs:
     - name: Checkout repository
       uses: actions/checkout@v4
 
-    - name: Install .NET SDK
-      uses: actions/setup-dotnet@v4
-      with:
-        dotnet-version: '9.0.x'
-
     - name: Run Architecture Tests (no coverage)
       run: dotnet test ${{ env.Architecture_Tests_Project_Path }} --no-build --no-restore
       
   # Job 3: Build, Test, and Run SonarQube Analysis
   build_and_analyze:
     runs-on: windows-latest
-    needs: install  # Ensure dependencies are installed first
+    needs: architecture_tests  # Ensure dependencies are installed first
 
     steps:
     - name: Checkout repository
