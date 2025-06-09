@@ -1,80 +1,74 @@
-name: UrlShortener Build, Test, Collect Coverage
-
+name: SonarQube
 on:
   push:
-    branches: [ "main" ]
+    branches:
+      - main
 
 env:
-  # Global Environment Variables
   Solution_Path: backend/UrlShortener.sln
   Architecture_Tests_Project_Path: backend/tests/UrlShortener.ArchitectureTests
   Unit_Tests_Project_Path: backend/tests/UrlShortener.UnitTests
 
 jobs:
-  # Job 1: Install dependencies
-  install:
+  build:
+    name: Build and analyze
     runs-on: windows-latest
-
     steps:
-    - name: Checkout repository
-      uses: actions/checkout@v4
-      with:
-        fetch-depth: 0
+      - name: Set up JDK 17
+        uses: actions/setup-java@v4
+        with:
+          java-version: 17
+          distribution: 'zulu'
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - name: Cache SonarQube Cloud packages
+        uses: actions/cache@v4
+        with:
+          path: ~\sonar\cache
+          key: ${{ runner.os }}-sonar
+          restore-keys: ${{ runner.os }}-sonar
+      - name: Cache SonarQube Cloud scanner
+        id: cache-sonar-scanner
+        uses: actions/cache@v4
+        with:
+          path: .\.sonar\scanner
+          key: ${{ runner.os }}-sonar-scanner
+          restore-keys: ${{ runner.os }}-sonar-scanner
+      - name: Install SonarQube Cloud scanner
+        if: steps.cache-sonar-scanner.outputs.cache-hit != 'true'
+        shell: powershell
+        run: |
+          New-Item -Path .\.sonar\scanner -ItemType Directory
+          dotnet tool update dotnet-sonarscanner --tool-path .\.sonar\scanner
+          
+      - name: Install Coverlet Console Tool
+        shell: powershell
+        run: dotnet tool install --global coverlet.console
+        
+      - name: Restore dependencies
+        shell: powershell
+        run: dotnet restore ${{ env.Solution_Path }}
 
-    - name: Install .NET SDK
-      uses: actions/setup-dotnet@v4
-      with:
-        dotnet-version: '9.0.x'
-
-    - name: Install SonarScanner
-      run: |
-        dotnet tool install --global dotnet-sonarscanner
-
-    - name: Install Coverlet Console Tool
-      run: |
-        dotnet tool install --global coverlet.console
-
-# Job 2: Run Architecture Tests
-  architecture_tests:
-    runs-on: windows-latest
-    needs: install  # Ensure dependencies are installed first
-
-    steps:
-    - name: Checkout repository
-      uses: actions/checkout@v4
-
-    - name: Run Architecture Tests (no coverage)
-      run: dotnet test ${{ env.Architecture_Tests_Project_Path }} --no-build --no-restore
-      
-  # Job 3: Build, Test, and Run SonarQube Analysis
-  build_and_analyze:
-    runs-on: windows-latest
-    needs: architecture_tests  # Ensure dependencies are installed first
-
-    steps:
-    - name: Checkout repository
-      uses: actions/checkout@v4
-
-    - name: Restore dependencies
-      run: dotnet restore ${{ env.Solution_Path }}
-
-    - name: Begin SonarQube analysis
-      run: |
-        dotnet sonarscanner begin /k:"sqs-project" \
-          /d:sonar.token="${{ secrets.SONARQUBE_TOKEN }}" \
-          /d:sonar.cs.opencover.reportsPaths=coverage.xml
-
-    - name: Build the solution
-      run: dotnet build ${{ env.Solution_Path }} --no-incremental --no-restore
-
-    - name: Run tests and collect code coverage
-      run: |
-        coverlet ${{ env.Unit_Tests_Project_Path }}/bin/Debug/net9.0/UrlShortener.UnitTests.dll \
-          --target "dotnet" \
-          --targetargs "test --no-build" \
-          -f opencover \
-          -o coverage.xml
-
-    - name: End SonarQube analysis
-      run: |
-        dotnet sonarscanner end /d:sonar.token="${{ secrets.SONARQUBE_TOKEN }}"
+      - name: Run Architecture Tests
+        run: dotnet test ${{ env.Architecture_Tests_Project_Path }} --no-restore
+          
+      - name: Start SonarQube analysis and build
+        env:
+          SONAR_TOKEN: ${{ secrets.SONARQUBE_TOKEN }}
+        shell: powershell
+        run: |
+          .\.sonar\scanner\dotnet-sonarscanner begin /k:"LucZZ_sqs-project" /o:"luczz" /d:sonar.token="${{ secrets.SONARQUBE_TOKEN }}" /d:sonar.host.url="https://sonarcloud.io" /d:sonar.cs.opencover.reportsPaths=coverage.xml
+      - name: Build solution
+        shell: powershell
+        run: dotnet build ${{ env.Solution_Path }} --no-incremental --no-restore -p:NoWarn=true
+    
+      - name: Run unit tests with coverage
+        shell: powershell
+        run: coverlet ${{ env.Unit_Tests_Project_Path }}/bin/Debug/net9.0/UrlShortener.UnitTests.dll --target "dotnet" --targetargs "test ${{ env.Unit_Tests_Project_Path }} --no-build" -f opencover -o "coverage.xml"
+    
+      - name: Complete SonarQube analysis
+        env:
+          SONAR_TOKEN: ${{ secrets.SONARQUBE_TOKEN }}
+        shell: powershell
+        run: .\.sonar\scanner\dotnet-sonarscanner end /d:sonar.token="${{ secrets.SONARQUBE_TOKEN }}"
