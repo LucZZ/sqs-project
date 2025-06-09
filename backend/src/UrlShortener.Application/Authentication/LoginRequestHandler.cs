@@ -17,9 +17,13 @@ public record LoginRequest(string UserName, string Password) : IRequest<Result<T
 internal class LoginRequestHandler(UserManager<User> _userManager, TimeProvider _timeProvider, IOptions<JwtOptions> _jwtOptions) : IRequestHandler<LoginRequest, Result<TokenResponse>> {
     public async Task<Result<TokenResponse>> Handle(LoginRequest request, CancellationToken cancellationToken) {
         var user = await _userManager.FindByNameAsync(request.UserName);
-        if(user is null || !await _userManager.CheckPasswordAsync(user, request.Password)) {
+        if(user is null) {
             return Result.Failure<TokenResponse>(Error.LoginFailed);
         }
+        if(!await _userManager.CheckPasswordAsync(user, request.Password)) {
+            return Result.Failure<TokenResponse>(Error.LoginFailed);
+        }
+
 
         var claims = new[]
         {

@@ -30,6 +30,6 @@ public class UrlEndpoints : CarterModule {
                 result.ToIResult();
             }
             return Results.Redirect(result.Value!);
-        });
+        }).AllowAnonymous();
     }
 }

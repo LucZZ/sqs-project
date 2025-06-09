@@ -17,7 +17,7 @@ internal class RegisterRequestHandler(UserManager<User> _userManager) : IRequest
             return Result.Failure(Error.UserAlreadyExists);
         }
 
-        var result = await _userManager.CreateAsync(new User() { UserName = request.UserName });
+        var result = await _userManager.CreateAsync(new User() { UserName = request.UserName }, request.Password);
 
         if(!result.Succeeded) {
             return Result.Failure(Error.RegistrationFailed);

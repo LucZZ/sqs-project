@@ -3,6 +3,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Refit;
 using UrlShortener.Domain.Base.Extensions;
 using UrlShortener.Domain.Base.Options;
+using UrlShortener.Domain.Services;
 using UrlShortener.Infrastructure.Services;
 
 namespace UrlShortener.Infrastructure;
@@ -16,6 +17,8 @@ public static class DependencyInjection {
                 client.BaseAddress = new Uri(virusTotalOptions.Url);
                 client.DefaultRequestHeaders.Add("x-apikey", virusTotalOptions.ApiKey);
             });
+
+        services.AddScoped<IVirusTotalService, VirusTotalService>();
 
         return services;
     }

@@ -16,7 +16,7 @@
   const router = useRouter();
   
   async function register() {
-    await api('/register', {
+    await api('/auth/register', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ username: username.value, password: password.value }),

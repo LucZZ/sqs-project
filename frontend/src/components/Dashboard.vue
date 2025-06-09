@@ -36,7 +36,8 @@
     const res = await api('/urls', {
       headers: { Authorization: `Bearer ${localStorage.getItem('jwt')}` },
     });
-    urls.value = await res.json();
+    const data = await res.json();
+    urls.value = data.value;
   }
   
   async function addUrl() {
@@ -46,9 +47,10 @@
         'Content-Type': 'application/json',
         Authorization: `Bearer ${localStorage.getItem('jwt')}`,
       },
-      body: JSON.stringify({ originalUrl: newUrl.value }),
+      body: JSON.stringify({ url: newUrl.value }),
     });
-    const added = await res.json();
+    const data = await res.json();
+    const added = data.value;
     urls.value.push(added);
     newUrl.value = '';
   }

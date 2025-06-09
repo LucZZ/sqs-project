@@ -16,13 +16,13 @@
   const router = useRouter();
   
   async function login() {
-    const response = await api('/login', {
+    const response = await api('/auth/login', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ username: username.value, password: password.value }),
     });
     const data = await response.json();
-    localStorage.setItem('jwt', data.token);
-    router.push('/');
+    localStorage.setItem('jwt', data.value.accessToken);
+    router.push('/dashboard');
   }
   </script>
