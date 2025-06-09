@@ -49,6 +49,9 @@ jobs:
       - name: Restore dependencies
         shell: powershell
         run: dotnet restore ${{ env.Solution_Path }}
+
+      - name: Run Architecture Tests
+        run: dotnet test ${{ env.Architecture_Tests_Project_Path }} --no-restore
           
       - name: Start SonarQube analysis and build
         env:
