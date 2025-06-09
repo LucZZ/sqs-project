@@ -5,7 +5,6 @@ on:
       - main
 
 env:
-  # Global Environment Variables
   Solution_Path: backend/UrlShortener.sln
   Architecture_Tests_Project_Path: backend/tests/UrlShortener.ArchitectureTests
   Unit_Tests_Project_Path: backend/tests/UrlShortener.UnitTests
@@ -19,10 +18,10 @@ jobs:
         uses: actions/setup-java@v4
         with:
           java-version: 17
-          distribution: 'zulu' # Alternative distribution options are available.
+          distribution: 'zulu'
       - uses: actions/checkout@v4
         with:
-          fetch-depth: 0  # Shallow clones should be disabled for a better relevancy of analysis
+          fetch-depth: 0
       - name: Cache SonarQube Cloud packages
         uses: actions/cache@v4
         with:
@@ -42,11 +41,31 @@ jobs:
         run: |
           New-Item -Path .\.sonar\scanner -ItemType Directory
           dotnet tool update dotnet-sonarscanner --tool-path .\.sonar\scanner
-      - name: Build and analyze
+          
+      - name: Install Coverlet Console Tool
+        shell: powershell
+        run: dotnet tool install --global coverlet.console
+        
+      - name: Restore dependencies
+        shell: powershell
+        run: dotnet restore ${{ env.Solution_Path }}
+          
+      - name: Start SonarQube analysis and build
         env:
           SONAR_TOKEN: ${{ secrets.SONARQUBE_TOKEN }}
         shell: powershell
         run: |
-          .\.sonar\scanner\dotnet-sonarscanner begin /k:"LucZZ_sqs-project" /o:"luczz" /d:sonar.token="${{ secrets.SONARQUBE_TOKEN }}" /d:sonar.host.url="https://sonarcloud.io"
-          dotnet build ${{ env.Solution_Path }}
-          .\.sonar\scanner\dotnet-sonarscanner end /d:sonar.token="${{ secrets.SONARQUBE_TOKEN }}"
+          .\.sonar\scanner\dotnet-sonarscanner begin /k:"LucZZ_sqs-project" /o:"luczz" /d:sonar.token="${{ secrets.SONARQUBE_TOKEN }}" /d:sonar.host.url="https://sonarcloud.io" /d:sonar.cs.opencover.reportsPaths=coverage.xml
+      - name: Build solution
+        shell: powershell
+        run: dotnet build ${{ env.Solution_Path }} --no-incremental --no-restore -p:NoWarn=true
+    
+      - name: Run unit tests with coverage
+        shell: powershell
+        run: coverlet ${{ env.Unit_Tests_Project_Path }}/bin/Debug/net9.0/UrlShortener.UnitTests.dll --target "dotnet" --targetargs "test ${{ env.Unit_Tests_Project_Path }} --no-build" -f opencover -o "coverage.xml"
+    
+      - name: Complete SonarQube analysis
+        env:
+          SONAR_TOKEN: ${{ secrets.SONARQUBE_TOKEN }}
+        shell: powershell
+        run: .\.sonar\scanner\dotnet-sonarscanner end /d:sonar.token="${{ secrets.SONARQUBE_TOKEN }}"
