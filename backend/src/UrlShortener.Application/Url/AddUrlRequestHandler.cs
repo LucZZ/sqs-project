@@ -13,7 +13,7 @@ internal class AddUrlRequestHandler(IApplicationDbContext _applicationDbContext,
 
         var urlExists = await _applicationDbContext.Urls
             .Include(u => u.User)
-            .AnyAsync(u => u.OriginalUrl == request.Url && u.User.UserName == request.UserName, cancellationToken: cancellationToken);
+            .AnyAsync(u => u.OriginalUrl == request.Url, cancellationToken: cancellationToken);
 
         if(urlExists) {
             return Result.Failure<UrlResponse>(Error.UrlAlreadyExists);
