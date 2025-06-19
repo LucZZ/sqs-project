@@ -13,20 +13,20 @@ internal class VirusTotalService(IVirusTotalApi _virusTotalApi) : IVirusTotalSer
             return Result.Failure(Error.VirusTotalFailed);
         }
 
-        var reportResult = await _virusTotalApi.GetReport(scanResult.Content.data.id);
+        var reportResult = await _virusTotalApi.GetReport(scanResult.Content.Data.Id);
 
         if (!reportResult.IsSuccessful) {
             return Result.Failure(Error.VirusTotalFailed);
         }
 
-        if(reportResult.Content.data.stats is { malicious: > 0 } or { suspicious: > 0 }) {
+        if(reportResult.Content.Data.Stats is { Malicious: > 0 } or { Suspicious: > 0 }) {
             return Result.Failure(Error.VirusTotalSuspicious);
         }
         return Result.Success();
     }
 }
 
-internal interface IVirusTotalApi {
+public interface IVirusTotalApi {
     [Post("/api/v3/urls")]
     public Task<ApiResponse<ScanResponse>> ScanUrl([Body(BodySerializationMethod.UrlEncoded)] Dictionary<string, object> data);
 

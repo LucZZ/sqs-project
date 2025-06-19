@@ -12,7 +12,6 @@ internal class AddUrlRequestHandler(IApplicationDbContext _applicationDbContext,
     public async Task<Result<UrlResponse>> Handle(AddUrlRequest request, CancellationToken cancellationToken) {
 
         var urlExists = await _applicationDbContext.Urls
-            .Include(u => u.User)
             .AnyAsync(u => u.OriginalUrl == request.Url, cancellationToken: cancellationToken);
 
         if(urlExists) {

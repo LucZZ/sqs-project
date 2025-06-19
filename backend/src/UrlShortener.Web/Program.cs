@@ -53,3 +53,5 @@ app.MapCarter();
 await app.MigrateDatabases();
 
 await app.RunAsync();
+
+public partial class Program;
