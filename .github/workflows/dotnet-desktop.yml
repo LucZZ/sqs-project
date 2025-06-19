@@ -64,25 +64,13 @@ jobs:
       - name: Start SonarQube analysis
         env:
           SONAR_TOKEN: ${{ secrets.SONARQUBE_TOKEN }}
-        run: |
-          .sonar/scanner/dotnet-sonarscanner begin \
-            /k:"LucZZ_sqs-project" \
-            /o:"luczz" \
-            /d:sonar.token="${{ secrets.SONARQUBE_TOKEN }}" \
-            /d:sonar.host.url="https://sonarcloud.io" \
-            /d:sonar.cs.opencover.reportsPaths=coverage.xml
+        run: .\.sonar\scanner\dotnet-sonarscanner begin /k:"LucZZ_sqs-project" /o:"luczz" /d:sonar.token="${{ secrets.SONARQUBE_TOKEN }}" /d:sonar.host.url="https://sonarcloud.io" /d:sonar.cs.opencover.reportsPaths=coverage.xml
 
       - name: Build solution
         run: dotnet build ${{ env.Solution_Path }} --no-incremental --no-restore --property WarningLevel=0
 
       - name: Run unit tests with coverage
-        run: |
-          ~/.dotnet/tools/coverlet ${{ env.Unit_Tests_Project_Path }}/bin/Debug/net9.0/UrlShortener.UnitTests.dll \
-            --target "dotnet" \
-            --targetargs "test ${{ env.Unit_Tests_Project_Path }} --no-build" \
-            -f opencover \
-            -o "coverage.xml" \
-            --property WarningLevel=0
+        run: ~/.dotnet/tools/coverlet ${{ env.Unit_Tests_Project_Path }}/bin/Debug/net9.0/UrlShortener.UnitTests.dll --target "dotnet" --targetargs "test ${{ env.Unit_Tests_Project_Path }} --no-build" -f opencover -o "coverage.xml"  --property WarningLevel=0
 
       - name: Run integration tests with coverage
         run: echo "TODO"
