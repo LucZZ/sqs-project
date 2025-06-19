@@ -7,7 +7,7 @@ using UrlShortener.Domain.Entities;
 using UrlShortener.UnitTests.Abstractions;
 
 namespace UrlShortener.UnitTests.Application.Authentication;
-public class RegisterCommandHandlerTests {
+public class RegisterRequestHandlerTests {
 
     [Fact]
     public async Task Handle_ShouldReturnSuccess_WhenUserDoesNotExist_AndCreationSucceeds() {

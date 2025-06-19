@@ -24,7 +24,6 @@ internal class LoginRequestHandler(UserManager<User> _userManager, TimeProvider 
             return Result.Failure<TokenResponse>(Error.LoginFailed);
         }
 
-
         var claims = new[]
         {
             new Claim(ClaimTypes.NameIdentifier, user.Id.ToString()),
