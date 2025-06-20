@@ -82,6 +82,12 @@ jobs:
       - name: Merge coverage reports
         run: reportgenerator -reports:"coverage-*.xml" -targetdir:"coverage-report" -reporttypes:SonarQube -assemblyfilters:+*
 
+      - name: Upload merged report
+        uses: actions/upload-artifact@v4
+        with:
+            name: sonar-coverage-report
+            path: coverage-report/SonarQube.xml
+
       - name: Complete SonarQube analysis
         env:
           SONAR_TOKEN: ${{ secrets.SONARQUBE_TOKEN }}
