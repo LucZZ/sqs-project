@@ -68,7 +68,7 @@ jobs:
       - name: Start SonarQube analysis
         env:
           SONAR_TOKEN: ${{ secrets.SONARQUBE_TOKEN }}
-        run: ./.sonar/scanner/dotnet-sonarscanner begin /k:"LucZZ_sqs-project" /o:"luczz" /d:sonar.token="${{ secrets.SONARQUBE_TOKEN }}" /d:sonar.host.url="https://sonarcloud.io" /d:sonar.cs.opencover.reportsPaths=coverage-integration.xml
+        run: ./.sonar/scanner/dotnet-sonarscanner begin /k:"LucZZ_sqs-project" /o:"luczz" /d:sonar.token="${{ secrets.SONARQUBE_TOKEN }}" /d:sonar.host.url="https://sonarcloud.io" /d:sonar.cs.opencover.reportsPaths=SonarQube.xml
 
       - name: Build solution
         run: dotnet build ${{ env.Solution_Path }} --no-incremental --no-restore --property WarningLevel=0
@@ -80,13 +80,13 @@ jobs:
         run: ~/.dotnet/tools/coverlet ${{ env.Integration_Tests_Project_Path }}/bin/Debug/net9.0/UrlShortener.IntegrationTests.dll --target "dotnet" --targetargs "test ${{ env.Integration_Tests_Project_Path }} --no-build --no-restore" -f opencover -o "coverage-integration.xml"
 
       - name: Merge coverage reports
-        run: reportgenerator -reports:"coverage-*.xml" -targetdir:"coverage-report" -reporttypes:SonarQube -assemblyfilters:+*
+        run: reportgenerator -reports:"coverage-*.xml" -reporttypes:SonarQube -assemblyfilters:+*
 
       - name: Upload merged report
         uses: actions/upload-artifact@v4
         with:
             name: sonar-coverage-report
-            path: coverage-report/SonarQube.xml
+            path: SonarQube.xml
 
       - name: Complete SonarQube analysis
         env:
