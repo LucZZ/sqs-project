@@ -80,7 +80,7 @@ jobs:
         run: ~/.dotnet/tools/coverlet ${{ env.Integration_Tests_Project_Path }}/bin/Debug/net9.0/UrlShortener.IntegrationTests.dll --target "dotnet" --targetargs "test ${{ env.Integration_Tests_Project_Path }} --no-build --no-restore" -f opencover -o "coverage-integration.xml"
 
       - name: Merge coverage reports
-        run: reportgenerator -reports:"coverage-*.xml" -targetdir:"test" -reporttypes:SonarQube -assemblyfilters:+*
+        run: reportgenerator -reports:"coverage-*.xml" -targetdir:"test" -assemblyfilters:+*
  
       #- name: Upload merged report
       #  uses: actions/upload-artifact@v4
