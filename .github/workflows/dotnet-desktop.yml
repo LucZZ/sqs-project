@@ -68,7 +68,7 @@ jobs:
       - name: Start SonarQube analysis
         env:
           SONAR_TOKEN: ${{ secrets.SONARQUBE_TOKEN }}
-        run: ./.sonar/scanner/dotnet-sonarscanner begin /k:"LucZZ_sqs-project" /o:"luczz" /d:sonar.token="${{ secrets.SONARQUBE_TOKEN }}" /d:sonar.host.url="https://sonarcloud.io" /d:sonar.cs.opencover.reportsPaths=coverage-report/SonarQube.xml /d:sonar.sources=backend
+        run: ./.sonar/scanner/dotnet-sonarscanner begin /k:"LucZZ_sqs-project" /o:"luczz" /d:sonar.token="${{ secrets.SONARQUBE_TOKEN }}" /d:sonar.host.url="https://sonarcloud.io" /d:sonar.cs.opencover.reportsPaths=coverage-integration.xml
 
       - name: Build solution
         run: dotnet build ${{ env.Solution_Path }} --no-incremental --no-restore --property WarningLevel=0
