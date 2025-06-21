@@ -45,27 +45,4 @@ public class Result {
 
     public static Result<TValue> Failure<TValue>(Error[] errors) =>
         new(default, false, errors);
-
-    public static Result<TValue> Create<TValue>(TValue? value) =>
-        value is not null ? Success(value) : Failure<TValue>(Error.NullValue);
-
-    /*
-     * Method for exceptionhandling pipline
-     * called with reflection
-     * Do not change!
-     */
-#pragma warning disable IDE0051
-    private static Result<TValue> FailureExceptionHandling<TValue>(Error[] error) =>
-        new(default, false, error);
-#pragma warning restore IDE0051
-
-    public static Result InstantiateFromGenericType(Type type, params Error[] error) {
-        MethodInfo info = typeof(Result).GetMethod("FailureExceptionHandling", BindingFlags.Static | BindingFlags.NonPublic) ?? throw new Exception("Method not found!");
-
-        MethodInfo m = info.MakeGenericMethod(type);
-
-        Result result = m.Invoke(null, new[] { error }) as Result ?? throw new Exception("Method could not be invoked!");
-
-        return result;
-    }
 }

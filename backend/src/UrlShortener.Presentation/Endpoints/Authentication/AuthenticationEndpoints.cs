@@ -1,6 +1,7 @@
 ﻿using Carter;
 using MediatR;
 using Microsoft.AspNetCore.Builder;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Routing;
 using UrlShortener.Application.Authentication;
 using UrlShortener.Domain.DTOs.Input;
@@ -23,5 +24,7 @@ public class AuthenticationEndpoints : CarterModule {
             var result = await sender.Send(new LoginRequest(userAuthRequest.UserName, userAuthRequest.Password));
             return result.ToIResult();
         }).AllowAnonymous();
+
+        app.MapGet("/authorized", () => Results.Ok()).RequireAuthorization();
     }
 }

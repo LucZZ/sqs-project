@@ -17,6 +17,4 @@ public class Result<TValue> : Result {
     public TValue? Value => IsSuccess
         ? _value!
         : default;
-
-    public static implicit operator Result<TValue>(TValue? value) => Create(value);
 }
