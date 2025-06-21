@@ -1,7 +1,7 @@
 ﻿using System.Diagnostics.CodeAnalysis;
 
 namespace UrlShortener.Domain.Base;
-public abstract class EntityBase : IEquatable<EntityBase>, IEqualityComparer<EntityBase> {
+public abstract class EntityBase : IEqualityComparer<EntityBase> {
 
     public int Id { get; set; }
 
