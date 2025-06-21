@@ -7,7 +7,7 @@ public class DependenciesTests {
     public void Domain_Should_Not_Have_Dependencies() {
 
         // Arrange
-        var assembly = typeof(Domain.AssemblyReference).Assembly;
+        var assembly = typeof(Domain.IAssemblyReference).Assembly;
 
         var otherProjects = new[] {
             Namespaces.ApplicationNamespace,
@@ -27,7 +27,7 @@ public class DependenciesTests {
     public void Application_Should_Not_Have_Dependencies() {
 
         // Arrange
-        var assembly = typeof(Application.AssemblyReference).Assembly;
+        var assembly = typeof(Application.IAssemblyReference).Assembly;
 
         var otherProjects = new[] {
             Namespaces.InfrastructureNamespace,
@@ -64,7 +64,7 @@ public class DependenciesTests {
     public void Persistence_Should_Not_Have_Dependencies() {
 
         // Arrange
-        var assembly = typeof(Persistence.AssemblyReference).Assembly;
+        var assembly = typeof(Persistence.IAssemblyReference).Assembly;
 
         var otherProjects = new[] {
             Namespaces.InfrastructureNamespace,
@@ -83,7 +83,7 @@ public class DependenciesTests {
     public void Presentation_Should_Not_Have_Dependencies() {
 
         // Arrange
-        var assembly = typeof(Presentation.AssemblyReference).Assembly;
+        var assembly = typeof(Presentation.IAssemblyReference).Assembly;
 
         var otherProjects = new[] {
             Namespaces.PersistenceNamespace,

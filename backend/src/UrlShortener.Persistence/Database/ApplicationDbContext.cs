@@ -27,7 +27,7 @@ public sealed class ApplicationDbContext : IdentityDbContext<User, IdentityRole<
             .HasForeignKey(u => u.UserId);
     }
 
-    private class UtcDateTimeConverter : ValueConverter<DateTime, DateTime> {
+    private sealed class UtcDateTimeConverter : ValueConverter<DateTime, DateTime> {
         public UtcDateTimeConverter() : base(v => v, v => DateTime.SpecifyKind(v, DateTimeKind.Utc)) { }
     }
 }

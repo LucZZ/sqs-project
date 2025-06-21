@@ -6,8 +6,6 @@ using Microsoft.Extensions.Logging;
 namespace UrlShortener.Persistence.Database;
 public static class DatabaseMigrator {
 
-    private const bool STOP_ON_ERROR = false;
-
     public static async Task MigrateDatabases(this WebApplication webApplication) {
 
         using var scope = webApplication.Services.CreateScope();
@@ -29,10 +27,7 @@ public static class DatabaseMigrator {
 
             logger.LogInformation("Last schema version: {lastAppliedMigration}", lastAppliedMigration);
         } catch (Exception ex) {
-            logger.LogCritical("Automatic migration was not successful! {ex}", ex);
-            if (STOP_ON_ERROR) {
-                Environment.Exit(1);
-            }
+            logger.LogCritical(ex, "Automatic migration was not successful!");
         }
     }
 }

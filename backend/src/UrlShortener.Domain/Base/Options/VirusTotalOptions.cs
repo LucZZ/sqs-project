@@ -6,9 +6,9 @@ public class VirusTotalOptions {
     public const string SectionName = "VirusTotal";
 
     [Required]
-    public string Url { get; set; }
+    public required string Url { get; set; }
 
     [Required]
-    public string ApiKey { get; set; }
+    public required string ApiKey { get; set; }
 
 }

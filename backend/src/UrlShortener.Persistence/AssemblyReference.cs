@@ -1,2 +1,2 @@
 ﻿namespace UrlShortener.Persistence;
-public static class AssemblyReference;
+public interface IAssemblyReference;

@@ -119,7 +119,7 @@ public class EntityBaseTests {
     [Fact]
     public void IEqualityComparer_GetHashCode_UsesEntityHashCode() {
         var entity = new TestEntity(5);
-        IEqualityComparer<EntityBase> comparer = entity;
+        EntityBase comparer = entity;
 
         comparer.GetHashCode(entity).ShouldBe(entity.GetHashCode());
     }
