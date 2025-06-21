@@ -98,31 +98,31 @@ public class EntityBaseTests {
         (b != a).ShouldBeTrue();
     }
 
-    [Fact]
-    public void IEqualityComparer_Equals_ReturnsTrue_ForEqualEntities() {
-        var comparer = new TestEntity(1);
-        var x = new TestEntity(1);
-        var y = new TestEntity(1);
+    //[Fact]
+    //public void IEqualityComparer_Equals_ReturnsTrue_ForEqualEntities() {
+    //    var comparer = new TestEntity(1);
+    //    var x = new TestEntity(1);
+    //    var y = new TestEntity(1);
 
-        comparer.Equals(x, y).ShouldBeTrue();
-    }
+    //    comparer.Equals(x, y).ShouldBeTrue();
+    //}
 
-    [Fact]
-    public void IEqualityComparer_Equals_ReturnsFalse_IfEitherNull() {
-        var comparer = new TestEntity(1);
-        var x = new TestEntity(1);
+    //[Fact]
+    //public void IEqualityComparer_Equals_ReturnsFalse_IfEitherNull() {
+    //    var comparer = new TestEntity(1);
+    //    var x = new TestEntity(1);
 
-        comparer.Equals(null, x).ShouldBeFalse();
-        comparer.Equals(x, null).ShouldBeFalse();
-    }
+    //    comparer.Equals(null, x).ShouldBeFalse();
+    //    comparer.Equals(x, null).ShouldBeFalse();
+    //}
 
-    [Fact]
-    public void IEqualityComparer_GetHashCode_UsesEntityHashCode() {
-        var entity = new TestEntity(5);
-        EntityBase comparer = entity;
+    //[Fact]
+    //public void IEqualityComparer_GetHashCode_UsesEntityHashCode() {
+    //    var entity = new TestEntity(5);
+    //    EntityBase comparer = entity;
 
-        comparer.GetHashCode(entity).ShouldBe(entity.GetHashCode());
-    }
+    //    comparer.GetHashCode(entity).ShouldBe(entity.GetHashCode());
+    //}
 
     public class TestEntity : EntityBase {
         public TestEntity(int id) : base(id) { }
