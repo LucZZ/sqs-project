@@ -14,6 +14,7 @@ public class TestDataSeeder {
     public const string Password = "Abcdef_1";
 
     public readonly List<User> Users = [];
+    public readonly List<Url> Urls = [];
 
 
     public TestDataSeeder(ApplicationDbContext context, UserManager<User> userManager) {
@@ -38,16 +39,15 @@ public class TestDataSeeder {
     }
 
     private async Task SeedUrlsAsync() {
-        var urlEntities = new List<Url>();
 
         foreach (var user in Users) {
             for (int i = 0; i < 2; i++) {
                 var url = new Url(_faker.Internet.Url(), Guid.NewGuid().ToString("N"), user);
-                urlEntities.Add(url);
+                Urls.Add(url);
             }
         }
 
-        _context.Urls.AddRange(urlEntities);
+        _context.Urls.AddRange(Urls);
         await _context.SaveChangesAsync();
     }
 }
