@@ -15,6 +15,9 @@ namespace UrlShortener.Application.Authentication;
 public record LoginRequest(string UserName, string Password) : IRequest<Result<TokenResponse>>;
 
 internal class LoginRequestHandler(UserManager<User> _userManager, TimeProvider _timeProvider, IOptions<JwtOptions> _jwtOptions) : IRequestHandler<LoginRequest, Result<TokenResponse>> {
+
+    private const int BufferSeconds = 5;
+
     public async Task<Result<TokenResponse>> Handle(LoginRequest request, CancellationToken cancellationToken) {
         var user = await _userManager.FindByNameAsync(request.UserName);
         if(user is null) {
@@ -40,6 +43,6 @@ internal class LoginRequestHandler(UserManager<User> _userManager, TimeProvider 
             expires: expires,
             signingCredentials: new SigningCredentials(key, SecurityAlgorithms.HmacSha256));
 
-        return Result.Success(new TokenResponse(new JwtSecurityTokenHandler().WriteToken(token), (expires - _timeProvider.GetUtcNow().UtcDateTime).Seconds - 5));
+        return Result.Success(new TokenResponse(new JwtSecurityTokenHandler().WriteToken(token), (int)(expires - _timeProvider.GetUtcNow().UtcDateTime).TotalSeconds - BufferSeconds));
     }
 }
