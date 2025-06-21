@@ -21,7 +21,13 @@ builder.Services.AddDomainServices(builder.Configuration)
     .AddPersistenceServices(builder.Configuration)
     .AddPresentationServices(builder.Configuration);
 
-builder.Services.AddCors();
+builder.Services.AddCors(options => {
+    options.AddPolicy("AllowFrontend", policy => {
+        policy.WithOrigins("http://localhost:5173") //TODO
+              .AllowAnyMethod()
+              .AllowAnyHeader();
+    });
+});
 
 builder.Services.AddOpenApi();
 
@@ -29,7 +35,7 @@ builder.Services.AddCarter();
 
 var app = builder.Build();
 
-app.UseCors(x => x.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader());
+app.UseCors("AllowFrontend");
 
 app.UseHttpsRedirection();
 
