@@ -35,7 +35,7 @@ public class CustomWebApplicationFactory : WebApplicationFactory<Program>, IAsyn
         await _msSqlContainer.StartAsync();
     }
 
-    protected override async void ConfigureWebHost(IWebHostBuilder builder) {
+    protected override void ConfigureWebHost(IWebHostBuilder builder) {
 
         builder.ConfigureTestServices(services => {
             var DbOptions = services.SingleOrDefault(d => d.ServiceType == typeof(DbContextOptions<ApplicationDbContext>));

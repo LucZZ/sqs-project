@@ -77,7 +77,7 @@ public class LoginRequestHandlerTests {
         var result = await handler.Handle(request, CancellationToken.None);
 
         result.IsSuccess.ShouldBeTrue();
-        result.Value.AccessToken.ShouldNotBeNullOrWhiteSpace();
+        result.Value!.AccessToken.ShouldNotBeNullOrWhiteSpace();
         //result.Value.ExpiresInSeconds.ShouldBeInRange(3550, 3599);
     }
 
