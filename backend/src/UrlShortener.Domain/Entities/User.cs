@@ -5,5 +5,7 @@ public class User : IdentityUser<int> {
 
     public List<Url> Urls { get; set; } = [];
 
+    public User(string userName) : base(userName) { }
+
     public User() { }
 }

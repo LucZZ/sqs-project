@@ -9,7 +9,7 @@ internal class VirusTotalApiFake : IVirusTotalApi {
 
         ReportResponse response;
 
-        if(id == "bad") {
+        if(id == "www.bad.de") {
             response = new ReportResponse(new ReportData(id, "analysis", null, null, new ReportStats(1, 0, 10, 20, 0)), null);
         } else {
             response = new ReportResponse(new ReportData(id, "analysis", null, null, new ReportStats(0, 0, 10, 20, 0)), null);

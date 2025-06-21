@@ -11,6 +11,7 @@
 	</ItemGroup>
 	-->
   <ItemGroup>
+    <PackageVersion Include="Bogus" Version="35.6.3" />
     <PackageVersion Include="Carter" Version="8.2.1" />
     <PackageVersion Include="Dapper" Version="2.1.66" />
     <PackageVersion Include="FluentValidation" Version="11.11.0" />
