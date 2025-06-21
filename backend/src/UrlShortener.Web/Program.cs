@@ -21,14 +21,7 @@ builder.Services.AddDomainServices(builder.Configuration)
     .AddPersistenceServices(builder.Configuration)
     .AddPresentationServices(builder.Configuration);
 
-builder.Services.AddCors(options => {
-    options.AddPolicy("DevPolicy", builder => {
-        builder
-            .WithOrigins("http://localhost:5173")
-            .AllowAnyHeader()
-            .AllowAnyMethod();
-    });
-});
+builder.Services.AddCors();
 
 builder.Services.AddOpenApi();
 
@@ -36,9 +29,7 @@ builder.Services.AddCarter();
 
 var app = builder.Build();
 
-
-//app.UseCors(x => x.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader());
-app.UseCors("DevPolicy");
+app.UseCors(x => x.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader());
 
 app.UseHttpsRedirection();
 
@@ -54,4 +45,6 @@ await app.MigrateDatabases();
 
 await app.RunAsync();
 
-public partial class Program;
+public partial class Program {
+    protected Program() { }
+}

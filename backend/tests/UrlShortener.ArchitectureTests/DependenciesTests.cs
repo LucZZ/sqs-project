@@ -46,7 +46,7 @@ public class DependenciesTests {
     public void Infrastructure_Should_Not_Have_Dependencies() {
 
         // Arrange
-        var assembly = typeof(Infrastructure.AssemblyReference).Assembly;
+        var assembly = typeof(Infrastructure.IAssemblyReference).Assembly;
 
         var otherProjects = new[] {
             Namespaces.PersistenceNamespace,
