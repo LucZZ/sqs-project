@@ -1,5 +1,4 @@
-﻿using Microsoft.AspNetCore.Mvc.Testing;
-using Shouldly;
+﻿using Shouldly;
 using UrlShortener.Application.Url;
 using UrlShortener.Domain.Base.Result;
 using UrlShortener.IntegrationTests.Abstractions;

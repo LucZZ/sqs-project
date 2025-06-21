@@ -23,7 +23,7 @@ public abstract class BaseIntegrationTest : IClassFixture<CustomWebApplicationFa
     }
 
     public Task InitializeAsync() {
-        return DataSeeder.SeedUsersAsync();
+        return DataSeeder.SeedDataAsync();
     }
     public Task DisposeAsync() {
         return Task.CompletedTask;

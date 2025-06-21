@@ -21,7 +21,7 @@ public class UrlEndpoints : CarterModule {
             return result.ToIResult();
         });
         app.MapGet("", async (ClaimsPrincipal claimsPrincipal, ISender sender) => {
-            var result = await sender.Send(new GetUrlList(claimsPrincipal.Identity?.Name ?? ""));
+            var result = await sender.Send(new GetUrlListRequest(claimsPrincipal.Identity?.Name ?? ""));
             return result.ToIResult();
         });
         app.MapGet("/{shortUrl}", async (string shortUrl, ISender sender) => {

@@ -12,7 +12,6 @@ internal class RedirectRequestHandler(IApplicationDbContext _applicationDbContex
     public async Task<Result<string>> Handle(RedirectRequest request, CancellationToken cancellationToken) {
 
         var url = await _applicationDbContext.Urls
-            .Include(u => u.User)
             .SingleOrDefaultAsync(u => u.ShortUrl == request.ShortUrl, cancellationToken: cancellationToken);
 
         if(url is null) {
