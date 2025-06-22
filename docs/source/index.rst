@@ -228,15 +228,15 @@ Contained Building Blocks
 UI
 ~~~~~~~~~~~~~~~~~~
 
-**Purpose:**
+*Purpose:*
 Provides the user interface for interacting with the UrlShortener system. Users can submit URLs for shortening and view scan results via a web-based frontend.
 
-**Quality:**
+*Quality:*
   - High usability and responsiveness  
   - Works across modern browsers  
   - Easy to extend with new features  
 
-**Technology:**  
+*Technology:*
   - Vue.js with TypeScript, bundled via Vite
 
 **Directory:**
@@ -248,19 +248,19 @@ Located in the `/frontend/` directory. Built with Vue.js and TypeScript, and dep
 API
 ~~~~~~~~~~~~~~~~~~
 
-**Purpose:**  
+*Purpose:*  
 Exposes HTTP endpoints for the frontend and the user to interact with the system.
 
-**Quality Attributes:**  
+*Quality Attributes:*  
   - Fast and lightweight (implemented using ASP.NET Core Minimal APIs)  
   - Follows REST principles  
   - Secure communication via HTTPS  
     - Easily testable and maintainable through the use of MediatR for request handling
 
-**Technology:**  
+*Technology:*  
   - ASP.NET 9.0 with Minimal Apis using Carter
 
-**Directory:**  
+*Directory:*  
 Located in the `/backend/src/UrlShortener.Presentation/` directory. Deployed as a containerized ASP.NET Core application (Dockerized).
 
 
@@ -268,18 +268,18 @@ Located in the `/backend/src/UrlShortener.Presentation/` directory. Deployed as 
 
 RequestHandler
 ~~~~~~~~~~~~~~~~~~
-**Purpose:**  
+*Purpose:* 
 Acts as the entry point for all application use cases (MediatR handlers). Receives incoming MediatR requests and delegates them to the appropriate domain services.
 
-**Quality Attributes:**  
+*Quality Attributes:*  
   - Highly decoupled from other layers  
   - Facilitates separation of concerns  
   - Testable and scalable  
 
-**Technology:**  
+*Technology:*  
   - Using the Mediator pattern with MediatR
 
-**Directory / Deployment Location:**  
+*Directory*  
 Located in the `/backend/src/UrlShortener.Application/` directory. Each use case is implemented as a separate handler class.
 
 
@@ -287,18 +287,18 @@ Located in the `/backend/src/UrlShortener.Application/` directory. Each use case
 
 Domain Service
 ~~~~~~~~~~~~~~~~~~
-**Purpose:**  
+*Purpose:*  
 Defines the core business operations of the application. Serves as the central abstraction for coordinating complex workflows such as URL shortening and threat analysis. Contains only interface definitions to decouple business logic from infrastructure.
 
-**Quality Attributes:**  
+*Quality Attributes:*  
   - Reusable  
   - Promotes testability and loose coupling  
   - Facilitates separation of concerns by delegating implementation to other layers
 
-**Technology:**  
+*Technology:*  
   - Result pattern instead of Exceptions
 
-**Directory / Deployment Location:**  
+*Directory*  
 Located in the `/backend/src/UrlShortener.Domain/` directory.
 
 
@@ -306,13 +306,13 @@ Located in the `/backend/src/UrlShortener.Domain/` directory.
 
 Domain Models
 ~~~~~~~~~~~~~~~~~~
-**Purpose:**  
+*Purpose:*  
 Encapsulates the core business entities and value objects, such as `Url`, `ScanResult`, or `User`.
 
-**Quality Attributes:**  
+*Quality Attributes:*  
   - Independent of frameworks and infrastructure  
 
-**Directory / Deployment Location:**  
+*Directory* 
 Located in the `/backend/src/UrlShortener.Domain/` directory. Used across the application, including handlers, services, and persistence implementations.
 
 
@@ -320,19 +320,19 @@ Located in the `/backend/src/UrlShortener.Domain/` directory. Used across the ap
 
 Database Service
 ~~~~~~~~~~~~~~~~~~
-**Purpose:**  
+*Purpose:*  
 Handles direct access to the relational database using Entity Framework Core. Provides access to application data (e.g., URLs, Users) by exposing `DbSet<T>` collections to the application layer.
 
-**Quality Attributes:**  
+*Quality Attributes:*  
   - Strongly typed and LINQ-integrated queries  
   - Tight coupling to EF Core but simplifies data access  
   - Low boilerplate due to lack of repository or abstraction layers
 
-**Technology:**  
+*Technology:*  
   - Ef Core 9.0
   - Microsoft Identity for usermanagement
 
-**Directory / Deployment Location:**  
+*Directory*  
 Located in the `/backend/src/UrlShortener.Persistence/` directory.
 
 
@@ -340,18 +340,18 @@ Located in the `/backend/src/UrlShortener.Persistence/` directory.
 
 Virustotal Service
 ~~~~~~~~~~~~~~~~~~
-**Purpose:**  
+*Purpose:*  
 Provides integration with the external VirusTotal API. Responsible for submitting URLs for analysis and retrieving scan results.
 
-**Quality Attributes:**  
+*Quality Attributes:*  
   - Isolated and encapsulated communication with the external API  
   - Fault-tolerant
   - Easily replaceable or mockable for testing purposes  
 
-**Technology:**  
+*Technology:*  
   - Refit for Http requests
 
-**Directory / Deployment Location:**  
+*Directory*  
 Located in the /backend/src/UrlShortener.Infrastructure/` directory. Used by application handlers to initiate and process external virus scans.
 
 
@@ -360,36 +360,36 @@ Located in the /backend/src/UrlShortener.Infrastructure/` directory. Used by app
 
 Database
 ~~~~~~~~~~~~~~~~~~
-**Purpose:**  
+*Purpose:*  
 Stores all persistent data for the UrlShortener system, including shortened URLs and Users.
 
-**Technology:**  
+*Technology:*  
   - Microsoft SQL Server
 
-**Quality Attributes:**  
+*Quality Attributes:*  
   - Relational consistency and ACID guarantees  
   - Supports complex queries and indexing  
   - Well-integrated with .NET and EF Core tooling
 
-**Directory / Deployment Location:**  
+*Directory*  
 Provisioned via Docker; connection configured through environment variables in the backend.
 
 .. _`__name_black_box_9`:
 
 VirusTotal API
 ~~~~~~~~~~~~~~~~~~
-**Purpose:**  
+*Purpose:*  
 External service used to analyze submitted URLs for threats such as malware, phishing, or suspicious behavior.
 
-**Technology:**  
+*Technology:*
 Public HTTP REST API provided by VirusTotal.
 
-**Quality Attributes:**  
+*Quality Attributes:*  
   - Asynchronous HTTP communication  
   - JSON-based requests and responses  
   - Requires API key and rate-limited access 
 
-**Directory / Deployment Location:**  
+*Directory*  
 Accessible via https://www.virustotal.com/
 
 
