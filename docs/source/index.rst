@@ -108,7 +108,10 @@ Context and Scope
 Business Context
 ----------------
 
-**<Diagram or Table>**
+.. image:: _static/my-diagram.png
+   :alt: Diagram description
+   :width: 600px
+   :align: center
 
 **<optionally: Explanation of external domain interfaces>**
 
