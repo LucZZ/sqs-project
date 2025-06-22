@@ -15,7 +15,7 @@ public class GetUrlListRequestHandler : BaseIntegrationTest {
         //Arrange
         var user = DataSeeder.Users.First();
 
-        var request = new GetUrlListRequest(user.UserName);
+        var request = new GetUrlListRequest(user.UserName!);
 
         //Act
         var response = await Sender.Send(request);

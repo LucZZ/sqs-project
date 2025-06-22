@@ -14,7 +14,7 @@ public class AddUrlRequestHandlerTests : BaseIntegrationTest {
         //Arrange
         var user = DataSeeder.Users.First();
 
-        var request = new AddUrlRequest("www.google.de", user.UserName);
+        var request = new AddUrlRequest("www.google.de", user.UserName!);
 
         //Act
         var response = await Sender.Send(request);
@@ -28,7 +28,7 @@ public class AddUrlRequestHandlerTests : BaseIntegrationTest {
         //Arrange
         var user = DataSeeder.Users.First();
 
-        var setupRequest = new AddUrlRequest("www.youtube.com", user.UserName);
+        var setupRequest = new AddUrlRequest("www.youtube.com", user.UserName!);
         var setupResponse = await Sender.Send(setupRequest);
 
         //Act
@@ -45,7 +45,7 @@ public class AddUrlRequestHandlerTests : BaseIntegrationTest {
         //Arrange
         var user = DataSeeder.Users.First();
 
-        var request = new AddUrlRequest("www.bad.de", user.UserName);
+        var request = new AddUrlRequest("www.bad.de", user.UserName!);
 
         //Act
         var response = await Sender.Send(request);
