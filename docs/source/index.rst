@@ -85,13 +85,13 @@ Stakeholders
 Architecture Constraints
 ========================
 Technical Aspects:
-*- Development using Docker (associated OS in Docker is Linux - Ubuntu)
-*- Backend programming language: C#
-*- Backend framework: ASP.NET 9.0
-*- Database: MS SQL
-*- External system: https://www.virustotal.com/
-*- Frontend programming language: TypeScript
-*- Frontend framework: Vue.js
+* Development using Docker (associated OS in Docker is Linux - Ubuntu)
+* Backend programming language: C#
+* Backend framework: ASP.NET 9.0
+* Database: MS SQL
+* External system: https://www.virustotal.com/
+* Frontend programming language: TypeScript
+* Frontend framework: Vue.js
 
 Organizational Aspects:
 *- Time: 24.06.25 - software submission deadline
