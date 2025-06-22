@@ -228,20 +228,21 @@ Important Interfaces
 
 .. _`__name_black_box_1`:
 
-<Name black box 1>
+UI
 ~~~~~~~~~~~~~~~~~~
 
-*<Purpose/Responsibility>*
+*<Purpose>*
+Provides the user interface for interacting with the UrlShortener system. Users can submit URLs for shortening and view scan results via a web-based frontend.
 
-*<Interface(s)>*
+*<Interface>*
 
-*<(Optional) Quality/Performance Characteristics>*
+*<Quality>*
+- High usability and responsiveness  
+- Works across modern browsers  
+- Easy to extend with new features  
 
-*<(Optional) Directory/File Location>*
-
-*<(Optional) Fulfilled Requirements>*
-
-*<(optional) Open Issues/Problems/Risks>*
+*<Directory>*
+Located in the `/frontend/` directory. Built with Vue.js and TypeScript, and deployed as a static web app.
 
 .. _`__name_black_box_2`:
 
