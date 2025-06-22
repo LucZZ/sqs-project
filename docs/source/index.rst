@@ -108,7 +108,7 @@ Context and Scope
 Business Context
 ----------------
 
-.. image:: _static/my-diagram.png
+.. image:: _static/BusinessContext.png
    :alt: Diagram description
    :width: 600px
    :align: center
