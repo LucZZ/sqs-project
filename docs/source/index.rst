@@ -25,18 +25,30 @@ Quality Goals
 -------------
 The application should achieve the following quality goals (QG):
 
-+------------+-----------------------+---------------------------------------------------------------------------------------------------------------------------------------------------------+
-| Priority   | Quality Goal          | Scenario                                                                                                                                                |
-+============+=======================+=========================================================================================================================================================+
-| 1          | Reliability           | The system performs functions under the specified conditions and environments. Low "mean time to recovery" and a small number of failures.              |
-+------------+-----------------------+---------------------------------------------------------------------------------------------------------------------------------------------------------+
-| 2          | Maintainability       | The system can be modified to improve, correct, or adapt it to changing needs. If another developer takes over, they can add features and improvements. |
-+------------+-----------------------+---------------------------------------------------------------------------------------------------------------------------------------------------------+
-| 3          | Usability             | The system can be understood, learned, and used, and is attractive to users. A user should be able to use it without an introduction.                   |
-|            |                       | Interfaces and functions should be self-explanatory or provide direct help.                                                                             |
-+------------+-----------------------+---------------------------------------------------------------------------------------------------------------------------------------------------------+
-| 4          | Portability           | The system can be transferred to different environments. It should be platform-independent.                                                             |
-+------------+-----------------------+---------------------------------------------------------------------------------------------------------------------------------------------------------+
+.. list-table:: Quality Goals and Scenarios
+   :header-rows: 1
+   :widths: 10 20 70
+
+   * - Priority
+     - Quality Goal
+     - Scenario
+   * - 1
+     - Reliability
+     - - The system performs functions under the specified conditions and environments.
+       - Low "mean time to recovery" and a small number of failures.
+   * - 2
+     - Maintainability
+     - - The system can be modified to improve, correct, or adapt it to changing needs.
+       - If another developer takes over, they can add features and improvements.
+   * - 3
+     - Usability
+     - - The system can be understood, learned, and used, and is attractive to users.
+       - A user should be able to use it without an introduction.
+       - Interfaces and functions should be self-explanatory or provide direct help.
+   * - 4
+     - Portability
+     - - The system can be transferred to different environments.
+       - It should be platform-independent.
 
 
 .. _`_stakeholders`:
@@ -44,17 +56,29 @@ The application should achieve the following quality goals (QG):
 Stakeholders
 ------------
 
-+-------------+---------------------------+-------------------------------------------------------------------------------------------------------------+
-| Role/Name   | Contact                   | Expectations                                                                                                |
-+=============+===========================+=============================================================================================================+
-| Dozent | Felix Rampf | A functioning application that complies with the specified quality objectives and other SQS aspects.                           |
-+-------------+---------------------------+-------------------------------------------------------------------------------------------------------------+
-| Student/Developer  | Lucas Weiss | High learning effects in the area of SQS and Python and a functioning application with the specified quality goals.|
-+-------------+---------------------------+-------------------------------------------------------------------------------------------------------------+
-| User  | - | The system works, is user-friendly, and meets the expectations that users have of the system.                                             |
-+-------------+---------------------------+-------------------------------------------------------------------------------------------------------------+
-| VirusTotal Api  | https://www.virustotal.com/ | Use of the API in accordance with the provider's specifications                                       |
-+-------------+---------------------------+-------------------------------------------------------------------------------------------------------------+
+.. list-table:: Stakeholders and Expectations
+   :header-rows: 1
+   :widths: 20 20 60
+
+   * - Role/Name
+     - Contact
+     - Expectations
+   * - Dozent
+     - Felix Rampf
+     - - A functioning application that complies with the specified quality objectives.
+       - Adheres to other SQS aspects.
+   * - Student/Developer
+     - Lucas Weiss
+     - - High learning effects in the area of SQS and Python.
+       - A functioning application with the specified quality goals.
+   * - User
+     - -
+     - - The system works.
+       - It is user-friendly.
+       - It meets the expectations that users have of the system.
+   * - VirusTotal API
+     - https://www.virustotal.com/
+     - - Use of the API in accordance with the provider's specifications.
 
 .. _section-architecture-constraints:
 
