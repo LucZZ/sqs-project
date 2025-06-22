@@ -490,6 +490,9 @@ Architecture Decisions
    * - Consequences
      - The application will be implemented in .NET 9.0.
 
+   * - \ 
+     - \ 
+	 
    * - Title
      - Web Framework for the Backend
    * - Context
@@ -501,6 +504,9 @@ Architecture Decisions
    * - Consequences
      - The backend will use ASP.NET 9.0 with Minimal APIs for lightweight and fast request handling.
 
+   * - \ 
+     - \ 
+	 
    * - Title
      - Containerization and Deployment
    * - Context
@@ -512,6 +518,9 @@ Architecture Decisions
    * - Consequences
      - The application will be containerized using Docker for consistent deployment across environments.
 
+   * - \ 
+     - \ 
+	 
    * - Title
      - Database Technology
    * - Context
@@ -523,6 +532,9 @@ Architecture Decisions
    * - Consequences
      - The application will store its data in an MS SQL database, accessed via EF Core.
 
+   * - \ 
+     - \ 
+	 
    * - Title
      - Application Architecture Style
    * - Context
@@ -534,6 +546,9 @@ Architecture Decisions
    * - Consequences
      - The backend will follow Clean Architecture principles to ensure maintainability and testability.
 
+   * - \ 
+     - \ 
+	 
    * - Title
      - Frontend Technology
    * - Context
