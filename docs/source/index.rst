@@ -136,19 +136,20 @@ Business Context
 Technical Context
 -----------------
 
-+------+
-| Neighbour | Interface | 
-+=========+
-| User | 
-+------+
-| UrlShortener |
-+------+
-| VirusTotal |
-+------+
-| SQL Database |
-+------+
+.. list-table::
+   :header-rows: 1
+   :widths: 20 80
 
-
+   * - Neighbour
+     - Interface
+   * - User
+     - Provides a URL to shorten; provides input data via a user interface.
+   * - UrlShortener
+     - Provides the user an interface that can be accessed using a browser.
+   * - Database
+     - Connects via a connection string; exchanges SQL queries through a connector.
+   * - VirusTotal
+     - Receives JSON requests via HTTPS and API key; returns the response as JSON.
 
 **<Diagram or Table>**
 
