@@ -428,70 +428,123 @@ Quality and/or Performance Features
 Mapping of Building Blocks to Infrastructure
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-- The **Application Container** communicates via a native database connection with the **Database Container** through the component *Database Connection*.
+- The **Application Container** communicates via a native database connection with the **Database Container** through the component **Database Connection**.
 - The **Application Container** communicates over the internet with the external third-party API **VirusTotal API**.
 - The **User's Computer** communicates with the **Application Container** via HTTP over the internet using a web browser.
-
-.. _`_infrastructure_level_2`:
-
-Infrastructure Level 2
-----------------------
-
-.. _`__emphasis_infrastructure_element_1_emphasis`:
-
-*<Infrastructure Element 1>*
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-*<diagram + explanation>*
-
-.. _`__emphasis_infrastructure_element_2_emphasis`:
-
-*<Infrastructure Element 2>*
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-*<diagram + explanation>*
-
-…
-
-.. _`__emphasis_infrastructure_element_n_emphasis`:
-
-*<Infrastructure Element n>*
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-*<diagram + explanation>*
-
-.. _section-concepts:
 
 Cross-cutting Concepts
 ======================
 
+.. image:: _static/Crosscutting.png
+   :align: center
+   :width: 600px
+
 .. _`__emphasis_concept_1_emphasis`:
 
-*<Concept 1>*
--------------
+Logging
+-------
 
-*<explanation>*
+The application uses structured logging to capture runtime behavior and diagnostics. All layers (API, application, and infrastructure) log significant actions and errors. Serilog is used as the primary logging library, and log messages include contextual information (e.g., request IDs, user IDs, exceptions). Logs can be routed to the console, files, or external log aggregation systems (e.g., Seq or Grafana Loki) depending on the environment.
+
+This improves traceability, debugging, and auditability
 
 .. _`__emphasis_concept_2_emphasis`:
 
-*<Concept 2>*
--------------
+Error Handling
+--------------
 
-*<explanation>*
+The application uses a centralized error-handling strategy. Business rule violations are represented using result types instead of exceptions.
 
-…
+Validation errors, unauthorized access, and external API failures are properly logged and surfaced with appropriate HTTP status codes (e.g., 400, 401, 500), ensuring both developer insight and user-friendly feedback.
 
-.. _`__emphasis_concept_n_emphasis`:
+.. _`__emphasis_concept_3_emphasis`:
 
-*<Concept n>*
--------------
+ASP.NET Framework
+-----------------
 
-*<explanation>*
+The backend is built using ASP.NET Core 9.0 and follows Clean Architecture principles. Minimal APIs are used to keep the HTTP interface lightweight, and dependency injection is leveraged throughout the application.
+
+MediatR is integrated to decouple application logic, and configuration is handled using strongly typed settings. The framework supports HTTPS by default, integrates easily with Docker, and provides built-in support for middleware, authentication, and environment-specific setups.
+
 
 .. _section-design-decisions:
 
 Architecture Decisions
 ======================
+
+.. list-table::
+   :header-rows: 1
+   :widths: 20 80
+
+   * - **Category**
+     - **Note**
+
+   * - Title
+     - Programming Language of the Application
+   * - Context
+     - What programming language should the application be developed in? Options include Java, .NET, Typescript or Python.
+   * - Decision
+     - .NET 9.0
+   * - Status
+     - accepted
+   * - Consequences
+     - The application will be implemented in .NET 9.0.
+
+   * - Title
+     - Web Framework for the Backend
+   * - Context
+     - Which web framework will be used to build the HTTP API?
+   * - Decision
+     - ASP.NET 9.0
+   * - Status
+     - accepted
+   * - Consequences
+     - The backend will use ASP.NET 9.0 with Minimal APIs for lightweight and fast request handling.
+
+   * - Title
+     - Containerization and Deployment
+   * - Context
+     - How will the application be deployed and run in different environments?
+   * - Decision
+     - Docker
+   * - Status
+     - accepted
+   * - Consequences
+     - The application will be containerized using Docker for consistent deployment across environments.
+
+   * - Title
+     - Database Technology
+   * - Context
+     - Which database will be used for persistent storage of application data?
+   * - Decision
+     - Microsoft SQL Server (MS SQL)
+   * - Status
+     - accepted
+   * - Consequences
+     - The application will store its data in an MS SQL database, accessed via EF Core.
+
+   * - Title
+     - Application Architecture Style
+   * - Context
+     - What architectural pattern should structure the backend?
+   * - Decision
+     - Clean Architecture
+   * - Status
+     - accepted
+   * - Consequences
+     - The backend will follow Clean Architecture principles to ensure maintainability and testability.
+
+   * - Title
+     - Frontend Technology
+   * - Context
+     - What framework and language will be used for the frontend?
+   * - Decision
+     - Vue.js with TypeScript
+   * - Status
+     - accepted
+   * - Consequences
+     - The frontend will be implemented using Vue.js with TypeScript
+
 
 .. _section-quality-scenarios:
 
