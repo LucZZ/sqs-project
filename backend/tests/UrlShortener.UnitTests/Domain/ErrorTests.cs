@@ -57,4 +57,80 @@ public class ErrorTests {
         // Assert
         result.ShouldBe("Error.UserAlreadyExists: The user already exisit!");
     }
+
+    [Fact]
+    public void Should_Compare_Null_Errors_As_Equal() {
+        // Arrange
+        Error? error1 = null;
+        Error? error2 = null;
+
+        // Act & Assert
+        (error1 == error2).ShouldBeTrue();
+        (error1 != error2).ShouldBeFalse();
+    }
+
+    [Fact]
+    public void Should_Compare_Null_And_NonNull_Errors_As_NotEqual() {
+        // Arrange
+        Error? error1 = Error.UserAlreadyExists;
+        Error? error2 = null;
+
+        // Act & Assert
+        (error1 == error2).ShouldBeFalse();
+        (error1 != error2).ShouldBeTrue();
+        (error2 == error1).ShouldBeFalse(); // Check commutativity
+        (error2 != error1).ShouldBeTrue();
+    }
+
+    [Fact]
+    public void Should_Not_Equal_When_Other_Is_Null() {
+        // Arrange
+        var error = Error.UserAlreadyExists;
+
+        // Act
+        var result = error.Equals((Error?)null);
+
+        // Assert
+        result.ShouldBeFalse();
+    }
+
+    [Fact]
+    public void Should_Not_Equal_NonError_Object() {
+        // Arrange
+        var error = Error.UserAlreadyExists;
+
+        // Act
+        var result = error.Equals("some string");
+
+        // Assert
+        result.ShouldBeFalse();
+    }
+
+    [Fact]
+    public void Should_Have_Same_HashCode_For_Same_Error() {
+        // Arrange
+        var error1 = Error.UserAlreadyExists;
+        var error2 = Error.UserAlreadyExists;
+
+        // Act
+        var hash1 = error1.GetHashCode();
+        var hash2 = error2.GetHashCode();
+
+        // Assert
+        hash1.ShouldBe(hash2);
+    }
+
+    [Fact]
+    public void Should_Have_Different_HashCode_For_Different_Errors() {
+        // Arrange
+        var error1 = Error.UserAlreadyExists;
+        var error2 = Error.UserNotFound;
+
+        // Act
+        var hash1 = error1.GetHashCode();
+        var hash2 = error2.GetHashCode();
+
+        // Assert
+        hash1.ShouldNotBe(hash2);
+    }
 }
