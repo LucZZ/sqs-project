@@ -111,7 +111,6 @@ Business Context
 ----------------
 
 .. image:: _static/BusinessContext.png
-   :alt: Diagram description
    :width: 600px
    :align: center
 
@@ -139,6 +138,10 @@ Business Context
 Technical Context
 -----------------
 
+.. image:: _static/TechnicalContext.png
+   :width: 600px
+   :align: center
+
 .. list-table::
    :header-rows: 1
    :widths: 20 80
@@ -154,9 +157,6 @@ Technical Context
    * - VirusTotal
      - Receives JSON requests via HTTPS and API key; returns the response as JSON.
 
-**<Diagram or Table>**
-
-**<optionally: Explanation of technical interfaces>**
 
 **<Mapping Input/Output to Channels>**
 
