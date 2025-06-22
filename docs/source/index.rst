@@ -382,7 +382,7 @@ VirusTotal API
 External service used to analyze submitted URLs for threats such as malware, phishing, or suspicious behavior.
 
 *Technology:*
-Public HTTP REST API provided by VirusTotal.
+  - Public HTTP REST API provided by VirusTotal.
 
 *Quality Attributes:*  
   - Asynchronous HTTP communication  
@@ -392,80 +392,16 @@ Public HTTP REST API provided by VirusTotal.
 *Directory*  
 Accessible via https://www.virustotal.com/
 
-
-
-
-
-
-…
-
-.. _`__name_interface_m`:
-
-<Name interface m>
-~~~~~~~~~~~~~~~~~~
-
-.. _`_level_2`:
-
-Level 2
--------
-
-.. _`_white_box_emphasis_building_block_1_emphasis`:
-
-White Box *<building block 1>*
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-*<white box template>*
-
-.. _`_white_box_emphasis_building_block_2_emphasis`:
-
-White Box *<building block 2>*
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-*<white box template>*
-
-…
-
-.. _`_white_box_emphasis_building_block_m_emphasis`:
-
-White Box *<building block m>*
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-*<white box template>*
-
-.. _`_level_3`:
-
-Level 3
--------
-
-.. _`_white_box_building_block_x_1`:
-
-White Box <_building block x.1_>
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-*<white box template>*
-
-.. _`_white_box_building_block_x_2`:
-
-White Box <_building block x.2_>
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-*<white box template>*
-
-.. _`_white_box_building_block_y_1`:
-
-White Box <_building block y.1_>
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-*<white box template>*
-
-.. _section-runtime-view:
-
 Runtime View
 ============
 
+.. image:: _static/Flow.png
+   :align: center
+   :width: 600px
+
 .. _`__runtime_scenario_1`:
 
-<Runtime Scenario 1>
+Login/Register
 --------------------
 
 -  *<insert runtime diagram or textual description of the scenario>*
@@ -475,18 +411,16 @@ Runtime View
 
 .. _`__runtime_scenario_2`:
 
-<Runtime Scenario 2>
+AddUrl
 --------------------
 
-.. _`_`:
 
-…
--
+.. _`__runtime_scenario_3`:
 
-.. _`__runtime_scenario_n`:
-
-<Runtime Scenario n>
+Redirect
 --------------------
+
+
 
 .. _section-deployment-view:
 
