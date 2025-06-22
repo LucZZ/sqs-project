@@ -72,7 +72,7 @@ Stakeholders
      - - High learning effects in the area of SQS and Python.
        - A functioning application with the specified quality goals.
    * - User
-     - -
+     - 
      - - The system works.
        - It is user-friendly.
        - It meets the expectations that users have of the system.
