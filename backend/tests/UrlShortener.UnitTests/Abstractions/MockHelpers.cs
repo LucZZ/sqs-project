@@ -53,7 +53,7 @@ public static class MockHelpers {
         var roles = new List<IRoleValidator<TRole>> {
             new RoleValidator<TRole>()
         };
-        return new RoleManager<TRole>(store, roles, MockLookupNormalizer(), new IdentityErrorDescriber(), null);
+        return new RoleManager<TRole>(store, roles, MockLookupNormalizer(), new IdentityErrorDescriber(), null!);
     }
 
     public static ILookupNormalizer MockLookupNormalizer() {

@@ -1,5 +1,7 @@
-﻿namespace UrlShortener.Domain.Base.Entity;
-public abstract class EntityBase : IEquatable<EntityBase> {
+﻿using System.Diagnostics.CodeAnalysis;
+
+namespace UrlShortener.Domain.Base.Entity;
+public abstract class EntityBase : IEquatable<EntityBase>, IEqualityComparer<EntityBase> {
 
     public int Id { get; set; }
 
@@ -38,4 +40,11 @@ public abstract class EntityBase : IEquatable<EntityBase> {
 
     public override int GetHashCode() => Id.GetHashCode() * 41;
 
+    public bool Equals(EntityBase? x, EntityBase? y) {
+        throw new NotImplementedException();
+    }
+
+    public int GetHashCode([DisallowNull] EntityBase obj) {
+        throw new NotImplementedException();
+    }
 }
