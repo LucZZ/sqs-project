@@ -229,8 +229,7 @@ UI
 ~~~~~~~~~~~~~~~~~~
 
 *Purpose:*
-
-Provides the user interface for interacting with the UrlShortener system. Users can submit URLs for shortening and view scan results via a web-based frontend.
+  - Provides the user interface for interacting with the UrlShortener system. Users can submit URLs for shortening and view scan results via a web-based frontend.
 
 *Quality:*
   - High usability and responsiveness  
@@ -241,8 +240,7 @@ Provides the user interface for interacting with the UrlShortener system. Users 
   - Vue.js with TypeScript, bundled via Vite
 
 *Directory:*
-
-Located in the `/frontend/` directory. Built with Vue.js and TypeScript, and deployed as a static web app.
+  - Located in the `/frontend/` directory. Built with Vue.js and TypeScript, and deployed as a static web app.
 
 
 .. _`__name_black_box_2`:
@@ -251,8 +249,7 @@ API
 ~~~~~~~~~~~~~~~~~~
 
 *Purpose:*  
-
-Exposes HTTP endpoints for the frontend and the user to interact with the system.
+  - Exposes HTTP endpoints for the frontend and the user to interact with the system.
 
 *Quality Attributes:*  
   - Fast and lightweight (implemented using ASP.NET Core Minimal APIs)  
@@ -264,8 +261,7 @@ Exposes HTTP endpoints for the frontend and the user to interact with the system
   - ASP.NET 9.0 with Minimal Apis using Carter
 
 *Directory:*  
-
-Located in the `/backend/src/UrlShortener.Presentation/` directory. Deployed as a containerized ASP.NET Core application (Dockerized).
+  - Located in the `/backend/src/UrlShortener.Presentation/` directory. Deployed as a containerized ASP.NET Core application (Dockerized).
 
 
 .. _`__name_black_box_3`:
@@ -273,8 +269,7 @@ Located in the `/backend/src/UrlShortener.Presentation/` directory. Deployed as 
 RequestHandler
 ~~~~~~~~~~~~~~~~~~
 *Purpose:* 
-
-Acts as the entry point for all application use cases (MediatR handlers). Receives incoming MediatR requests and delegates them to the appropriate domain services.
+  - Acts as the entry point for all application use cases (MediatR handlers). Receives incoming MediatR requests and delegates them to the appropriate domain services.
 
 *Quality Attributes:*  
   - Highly decoupled from other layers  
@@ -285,8 +280,7 @@ Acts as the entry point for all application use cases (MediatR handlers). Receiv
   - Using the Mediator pattern with MediatR
 
 *Directory*  
-
-Located in the `/backend/src/UrlShortener.Application/` directory. Each use case is implemented as a separate handler class.
+  - Located in the `/backend/src/UrlShortener.Application/` directory. Each use case is implemented as a separate handler class.
 
 
 .. _`__name_black_box_4`:
@@ -294,8 +288,7 @@ Located in the `/backend/src/UrlShortener.Application/` directory. Each use case
 Domain Service
 ~~~~~~~~~~~~~~~~~~
 *Purpose:* 
- 
-Defines the core business operations of the application. Serves as the central abstraction for coordinating complex workflows such as URL shortening and threat analysis. Contains only interface definitions to decouple business logic from infrastructure.
+  - Defines the core business operations of the application. Serves as the central abstraction for coordinating complex workflows such as URL shortening and threat analysis. Contains only interface definitions to decouple business logic from infrastructure.
 
 *Quality Attributes:*  
   - Reusable  
@@ -306,8 +299,7 @@ Defines the core business operations of the application. Serves as the central a
   - Result pattern instead of Exceptions
 
 *Directory*  
-
-Located in the `/backend/src/UrlShortener.Domain/` directory.
+  - Located in the `/backend/src/UrlShortener.Domain/` directory.
 
 
 .. _`__name_black_box_5`:
@@ -315,15 +307,13 @@ Located in the `/backend/src/UrlShortener.Domain/` directory.
 Domain Models
 ~~~~~~~~~~~~~~~~~~
 *Purpose:*  
-
-Encapsulates the core business entities and value objects, such as `Url`, `ScanResult`, or `User`.
+  - Encapsulates the core business entities and value objects, such as `Url`, `ScanResult`, or `User`.
 
 *Quality Attributes:*  
   - Independent of frameworks and infrastructure  
 
 *Directory* 
-
-Located in the `/backend/src/UrlShortener.Domain/` directory. Used across the application, including handlers, services, and persistence implementations.
+  - Located in the `/backend/src/UrlShortener.Domain/` directory. Used across the application, including handlers, services, and persistence implementations.
 
 
 .. _`__name_black_box_6`:
@@ -331,8 +321,7 @@ Located in the `/backend/src/UrlShortener.Domain/` directory. Used across the ap
 Database Service
 ~~~~~~~~~~~~~~~~~~
 *Purpose:*  
-
-Handles direct access to the relational database using Entity Framework Core. Provides access to application data (e.g., URLs, Users) by exposing `DbSet<T>` collections to the application layer.
+  - Handles direct access to the relational database using Entity Framework Core. Provides access to application data (e.g., URLs, Users) by exposing `DbSet<T>` collections to the application layer.
 
 *Quality Attributes:*  
   - Strongly typed and LINQ-integrated queries  
@@ -344,8 +333,7 @@ Handles direct access to the relational database using Entity Framework Core. Pr
   - Microsoft Identity for usermanagement
 
 *Directory*  
-
-Located in the `/backend/src/UrlShortener.Persistence/` directory.
+  - Located in the `/backend/src/UrlShortener.Persistence/` directory.
 
 
 .. _`__name_black_box_7`:
@@ -353,8 +341,7 @@ Located in the `/backend/src/UrlShortener.Persistence/` directory.
 Virustotal Service
 ~~~~~~~~~~~~~~~~~~
 *Purpose:*  
-
-Provides integration with the external VirusTotal API. Responsible for submitting URLs for analysis and retrieving scan results.
+  - Provides integration with the external VirusTotal API. Responsible for submitting URLs for analysis and retrieving scan results.
 
 *Quality Attributes:*  
   - Isolated and encapsulated communication with the external API  
@@ -365,8 +352,7 @@ Provides integration with the external VirusTotal API. Responsible for submittin
   - Refit for Http requests
 
 *Directory*  
-
-Located in the /backend/src/UrlShortener.Infrastructure/` directory. Used by application handlers to initiate and process external virus scans.
+  - Located in the /backend/src/UrlShortener.Infrastructure/` directory. Used by application handlers to initiate and process external virus scans.
 
 
 
@@ -375,8 +361,7 @@ Located in the /backend/src/UrlShortener.Infrastructure/` directory. Used by app
 Database
 ~~~~~~~~~~~~~~~~~~
 *Purpose:*  
-
-Stores all persistent data for the UrlShortener system, including shortened URLs and Users.
+  - Stores all persistent data for the UrlShortener system, including shortened URLs and Users.
 
 *Technology:*  
   - Microsoft SQL Server
@@ -387,16 +372,14 @@ Stores all persistent data for the UrlShortener system, including shortened URLs
   - Well-integrated with .NET and EF Core tooling
 
 *Directory*  
-
-Provisioned via Docker; connection configured through environment variables in the backend.
+  - Provisioned via Docker; connection configured through environment variables in the backend.
 
 .. _`__name_black_box_9`:
 
 VirusTotal API
 ~~~~~~~~~~~~~~~~~~
 *Purpose:*  
-
-External service used to analyze submitted URLs for threats such as malware, phishing, or suspicious behavior.
+  - External service used to analyze submitted URLs for threats such as malware, phishing, or suspicious behavior.
 
 *Technology:*
   - Public HTTP REST API provided by VirusTotal.
@@ -407,8 +390,7 @@ External service used to analyze submitted URLs for threats such as malware, phi
   - Requires API key and rate-limited access 
 
 *Directory*  
-
-Accessible via https://www.virustotal.com/
+  - Accessible via https://www.virustotal.com/
 
 Runtime View
 ============
