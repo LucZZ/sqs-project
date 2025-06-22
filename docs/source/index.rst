@@ -206,13 +206,22 @@ Building Block View
 Whitebox Overall System
 -----------------------
 
-**<Overview Diagram>**
+.. image:: _static/Whitebox.png
+   :alt: Whitebox diagram of UrlShortener
+   :align: center
+   :width: 600px
 
 Motivation
-   *<text explanation>*
+   This diagram provides an overview of the main building blocks of the UrlShortener system, including user interaction, API entry point, internal services, and external system integrations.
 
 Contained Building Blocks
-   *<Description of contained building block (black boxes)>*
+   - UI: Vue.js frontend interacting with the API
+   - API: ASP.NET Core Minimal API
+   - RequestHandler: Entry point for business logic
+   - Domain Service: Central logic layer coordinating operations
+   - Database Service / VirusTotalService: Infrastructure interfaces
+   - Domain Models: Core business objects
+   - External: SQL Server and VirusTotal API
 
 Important Interfaces
    *<Description of important interfaces>*
