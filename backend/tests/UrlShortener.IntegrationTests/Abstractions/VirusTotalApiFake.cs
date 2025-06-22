@@ -10,9 +10,9 @@ internal class VirusTotalApiFake : IVirusTotalApi {
         ReportResponse response;
 
         if(id == "www.bad.de") {
-            response = new ReportResponse(new ReportData(id, "analysis", null, null, new ReportStats(1, 0, 10, 20, 0)), null);
+            response = new ReportResponse(new ReportData(id, new ReportStats(1, 0, 10, 20, 0)));
         } else {
-            response = new ReportResponse(new ReportData(id, "analysis", null, null, new ReportStats(0, 0, 10, 20, 0)), null);
+            response = new ReportResponse(new ReportData(id, new ReportStats(0, 0, 10, 20, 0)));
         }
 
         return Task.FromResult(new ApiResponse<ReportResponse>(new HttpResponseMessage(HttpStatusCode.OK), response, new RefitSettings()));
@@ -26,7 +26,7 @@ internal class VirusTotalApiFake : IVirusTotalApi {
 
         var url = data.First().Value as string;
 
-        var response = new ScanResponse(new ScanData("analysis", url, new ScanLinks($"https://www.virustotal.com/api/v3/analyses/{url}")));
+        var response = new ScanResponse(new ScanData(url ?? ""));
 
         return Task.FromResult(new ApiResponse<ScanResponse>(new HttpResponseMessage(HttpStatusCode.OK), response, new RefitSettings()));
     }

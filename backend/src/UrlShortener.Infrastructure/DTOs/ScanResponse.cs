@@ -1,6 +1,5 @@
 ﻿namespace UrlShortener.Infrastructure.DTOs;
 public record ScanResponse(ScanData Data);
 
-public record ScanData(string Type, string Id, ScanLinks Links);
+public record ScanData(string Id);
 
-public record ScanLinks(string Self);
