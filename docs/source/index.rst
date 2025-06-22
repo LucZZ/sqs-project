@@ -399,29 +399,6 @@ Runtime View
    :align: center
    :width: 600px
 
-.. _`__runtime_scenario_1`:
-
-Login/Register
---------------------
-
--  *<insert runtime diagram or textual description of the scenario>*
-
--  *<insert description of the notable aspects of the interactions
-   between the building block instances depicted in this diagram.>*
-
-.. _`__runtime_scenario_2`:
-
-AddUrl
---------------------
-
-
-.. _`__runtime_scenario_3`:
-
-Redirect
---------------------
-
-
-
 .. _section-deployment-view:
 
 Deployment View
@@ -432,16 +409,28 @@ Deployment View
 Infrastructure Level 1
 ----------------------
 
-**<Overview Diagram>**
+.. image:: _static/Infrastrcuture.png
+   :align: center
+   :width: 600px
 
 Motivation
-   *<explanation in text form>*
+~~~~~~~~~~
+
+The application's infrastructure has been virtualized using Docker containers. This allows maintainers and developers to set up and operate the project independently of the host platform. Security aspects are addressed through Infrastructure as Code (e.g., Dockerfiles). This infrastructure also supports scalability: when a container reaches its limits, more resources can be allocated or a new container can be spawned. In addition, the system achieves higher fault tolerance. With Docker containers, multiple applications can reside in the same network and wait for user input.
 
 Quality and/or Performance Features
-   *<explanation in text form>*
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+- **Fault tolerance:** Multiple containers of the application can be spawned to take over the load in case of a failure. The application remains online.
+- **Scalability:** The application container can be duplicated and run within the same network. The containers operate independently.
+- **Maintainability:** The application can be migrated in the background while it is still running. After the migration is complete, containers are restarted one by one — invisible to the user.
 
 Mapping of Building Blocks to Infrastructure
-   *<description of the mapping>*
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+- The **Application Container** communicates via a native database connection with the **Database Container** through the component *Database Connection*.
+- The **Application Container** communicates over the internet with the external third-party API **VirusTotal API**.
+- The **User's Computer** communicates with the **Application Container** via HTTP over the internet using a web browser.
 
 .. _`_infrastructure_level_2`:
 
