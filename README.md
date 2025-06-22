@@ -20,6 +20,13 @@ The frontend is a **Vue.js** app built with **TypeScript** and Vite.
 - [.NET 9 SDK](https://dotnet.microsoft.com/)
 - [Node.js 20+](https://nodejs.org/)
 - [Docker Desktop](https://www.docker.com/products/docker-desktop)
+- The application integrates with the [VirusTotal API](https://www.virustotal.com/) to scan URLs.
+
+The configuration key needs to be defined in the `.env` file:
+
+```env
+VirusTotal__ApiKey=""
+```
 
 ### Running the Application
 
