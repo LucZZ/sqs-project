@@ -98,34 +98,53 @@ public class EntityBaseTests {
         (b != a).ShouldBeTrue();
     }
 
-    //[Fact]
-    //public void IEqualityComparer_Equals_ReturnsTrue_ForEqualEntities() {
-    //    var comparer = new TestEntity(1);
-    //    var x = new TestEntity(1);
-    //    var y = new TestEntity(1);
+    [Fact]
+    public void Equals_Object_ReturnsFalse_WhenNotEntityBase() {
+        var entity = new TestEntity(1);
+        object notEntityBase = new { Id = 1 };
 
-    //    comparer.Equals(x, y).ShouldBeTrue();
-    //}
-
-    //[Fact]
-    //public void IEqualityComparer_Equals_ReturnsFalse_IfEitherNull() {
-    //    var comparer = new TestEntity(1);
-    //    var x = new TestEntity(1);
-
-    //    comparer.Equals(null, x).ShouldBeFalse();
-    //    comparer.Equals(x, null).ShouldBeFalse();
-    //}
-
-    //[Fact]
-    //public void IEqualityComparer_GetHashCode_UsesEntityHashCode() {
-    //    var entity = new TestEntity(5);
-    //    EntityBase comparer = entity;
-
-    //    comparer.GetHashCode(entity).ShouldBe(entity.GetHashCode());
-    //}
+        entity.Equals(notEntityBase).ShouldBeFalse();
+    }
 
     public class TestEntity : EntityBase {
         public TestEntity(int id) : base(id) { }
         public TestEntity() { }
     }
+
+    [Fact]
+    public void EntityBaseComparer_Equals_ReturnsTrue_ForSameId() {
+        var comparer = new EntityBaseComparer();
+        var a = new TestEntity(42);
+        var b = new TestEntity(42);
+
+        comparer.Equals(a, b).ShouldBeTrue();
+    }
+
+    [Fact]
+    public void EntityBaseComparer_Equals_ReturnsFalse_ForDifferentId() {
+        var comparer = new EntityBaseComparer();
+        var a = new TestEntity(1);
+        var b = new TestEntity(2);
+
+        comparer.Equals(a, b).ShouldBeFalse();
+    }
+
+    [Fact]
+    public void EntityBaseComparer_Equals_ReturnsFalse_WhenOneIsNull() {
+        var comparer = new EntityBaseComparer();
+        var a = new TestEntity(1);
+        TestEntity? b = null;
+
+        comparer.Equals(a, b).ShouldBeFalse();
+        comparer.Equals(b, a).ShouldBeFalse();
+    }
+
+    [Fact]
+    public void EntityBaseComparer_GetHashCode_ReturnsExpected() {
+        var comparer = new EntityBaseComparer();
+        var a = new TestEntity(3);
+
+        comparer.GetHashCode(a).ShouldBe(3.GetHashCode() * 41);
+    }
+
 }
