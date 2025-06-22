@@ -26,3 +26,9 @@ The frontend is a **Vue.js** app built with **TypeScript** and Vite.
 ```bash
 # Start the full stack with Docker
 docker-compose up --build
+```
+The following services will start:
+
+frontend at http://localhost:5173
+backend API at http://localhost:5000
+sqlserver for persistent data
