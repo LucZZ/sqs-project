@@ -160,10 +160,41 @@ Technical Context
 
 **<Mapping Input/Output to Channels>**
 
+.. list-table::
+   :header-rows: 1
+   :widths: 20 80
+
+   * - Neighbour
+     - Mapping
+   * - VirusTotal
+     - 
+       - Authentification of a request via ApiKey
+       - VirusTotal analyzes a URL for potential malware, phishing, or other security threats using various antivirus engines and security services.
+
 .. _section-solution-strategy:
 
 Solution Strategy
 =================
+
+.. list-table::
+   :header-rows: 1
+   :widths: 25 75
+
+   * - Aspect
+     - Description
+   * - Architecture style
+     - Monolithic backend following Clean Architecture principles
+   * - Backend technology
+     - ASP.NET Core with MediatR pattern for decoupled business logic
+   * - Containerization
+     - Docker is used to ensure portability and consistent deployment
+   * - Frontend
+     - Developed using Vue.js with TypeScript
+   * - External system
+     - VirusTotal API is integrated for verifying the safety of shortened URLs
+   * - Database
+     - SQL Server is used for persistent data storage
+
 
 .. _section-building-block-view:
 
