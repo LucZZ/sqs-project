@@ -409,7 +409,7 @@ Deployment View
 Infrastructure Level 1
 ----------------------
 
-.. image:: _static/Infrastrcuture.png
+.. image:: _static/Infrastructure.png
    :align: center
    :width: 600px
 
