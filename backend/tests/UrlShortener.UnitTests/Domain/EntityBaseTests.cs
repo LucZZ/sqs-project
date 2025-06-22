@@ -1,5 +1,5 @@
 ﻿using Shouldly;
-using UrlShortener.Domain.Base;
+using UrlShortener.Domain.Base.Entity;
 
 namespace UrlShortener.UnitTests.Domain;
 public class EntityBaseTests {

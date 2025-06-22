@@ -1,4 +1,4 @@
-﻿using UrlShortener.Domain.Base;
+﻿using UrlShortener.Domain.Base.Entity;
 
 namespace UrlShortener.Domain.Entities;
 public class Url : EntityBase {

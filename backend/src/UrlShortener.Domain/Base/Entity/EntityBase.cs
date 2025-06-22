@@ -1,5 +1,5 @@
-﻿namespace UrlShortener.Domain.Base;
-public abstract class EntityBase {
+﻿namespace UrlShortener.Domain.Base.Entity;
+public abstract class EntityBase : IEquatable<EntityBase> {
 
     public int Id { get; set; }
 
@@ -8,7 +8,7 @@ public abstract class EntityBase {
     protected EntityBase() { }
 
     public static bool operator ==(EntityBase? first, EntityBase? second) =>
-        (first is null && second is null) || (first is not null && second is not null && first.Equals(second));
+        first is null && second is null || first is not null && second is not null && first.Equals(second);
 
     public static bool operator !=(EntityBase? first, EntityBase? second) =>
         !(first == second);
