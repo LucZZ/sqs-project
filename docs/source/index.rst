@@ -87,6 +87,7 @@ Business Context
 **<Diagram or Table>**
 
 **<optionally: Explanation of external domain interfaces>**
+
 .. list-table::
    :header-rows: 1
    :widths: 20 80
@@ -94,14 +95,17 @@ Business Context
    * - Neighbour
      - Description
    * - User
-     - - This is where the input for the application is generated.
+     - 
+       - This is where the input for the application is generated.
        - Uses the UrlShortener interface indirectly.
        - Accesses the UrlShortener system directly.
    * - VirusTotal
-     - - Provides an API to check URLs.
+     - 
+       - Provides an API to check URLs.
        - Uses multiple virus scanners.
    * - SQL Database
-     - - UrlShortener saves Users and URLs in a database.
+     - 
+       - UrlShortener saves Users and URLs in a database.
 
 .. _`_technical_context`:
 
