@@ -571,28 +571,207 @@ Quality Requirements
 Quality Tree
 ------------
 
+.. list-table::
+   :header-rows: 1
+   :widths: 20 20 40 10
+
+   * - **Quality Category**
+     - **Quality**
+     - **Description**
+     - **Scenario**
+
+   * - Reliability (1)
+     - Robustness
+     - The system should run reliably in the specified runtime environment.
+     - 1
+   * - 
+     - Low mean time to recovery
+     - The system should become available again as quickly as possible after a failure.
+     - 2
+   * - 
+     - Fault tolerance
+     - The system should support multiple instances.
+     - 3
+   * - 
+     - Availability
+     - If external interfaces are not available, the system should inform the user about the reduced functionality.
+     - 4
+   * - 
+     - Tests
+     - The system should achieve code coverage of >= 80%.
+     - 5
+
+   * - Maintainability (2)
+     - Maintainability
+     - Components outside the core domain should be replaceable without affecting business logic.
+     - 6
+   * - 
+     - Cognitive load
+     - The cognitive complexity of functions should be <= 15.
+     - 7
+   * - 
+     - Improvement
+     - Enhancements should be implementable without changing existing functionality.
+     - 8
+
+   * - Usability (3)
+     - Easy handling
+     - Easy to use for environmentally conscious users, especially regarding usage.
+     - 9
+   * - 
+     - Efficiency
+     - The application should respond to user input within a reasonable time.
+     - 10
+
+   * - Portability (4)
+     - OS independence
+     - The system should be operable regardless of the operating system.
+     - 11
+   * - 
+     - Transferable
+     - The system should be easy to move from one environment to another.
+     - 12
+
+   * - Security
+     - Secured
+     - Requests should only be made by authenticated users.
+     - 13
+
+
 .. _`_quality_scenarios`:
 
 Quality Scenarios
 -----------------
+
+.. list-table::
+   :header-rows: 1
+   :widths: 5 95
+
+   * - **#**
+     - **Scenario Description**
+
+   * - 1
+     - The system runs reliably on Windows and Linux environments under expected load conditions.
+
+   * - 2
+     - After a server crash, the application automatically restarts and is operational again within 10 seconds.
+
+   * - 3
+     - If one instance fails during peak load, another running instance continues to serve user requests seamlessly.
+
+   * - 4
+     - When the VirusTotal API is unavailable, the system notifies users that URL scanning is temporarily disabled while still allowing core functions.
+
+   * - 5
+     - The CI pipeline fails if unit test coverage falls below 80%.
+
+   * - 6
+     - The VirusTotal integration service is replaced with another threat intelligence API without modifying domain logic.
+
+   * - 7
+     - Code complexity is monitored, and newly added methods with cognitive complexity > 15 trigger code review warnings.
+
+   * - 8
+     - A new URL preview feature is added without changing existing URL shortening or scan functionalities.
+
+   * - 9
+     - A first-time user can shorten a URL without training or documentation and receives immediate, understandable feedback.
+
+   * - 10
+     - After submitting a URL, the user receives a shortened version or scan result in under 2 seconds.
+
+   * - 11
+     - The application is deployed on both Windows Server and Ubuntu with identical functionality.
+
+   * - 12
+     - The system is migrated from a developer laptop to a cloud environment using Docker with no code changes.
+
+   * - 13
+     - Only authenticated users with a valid JWT token can access protected API routes (e.g., user history or submission endpoints).
+
 
 .. _section-technical-risks:
 
 Risks and Technical Debts
 =========================
 
+.. list-table:: Risks and Technical Debts
+   :header-rows: 1
+   :widths: 10 90
+
+   * - **Type**
+     - **Description**
+
+   * - Risk
+     - **External API dependency (VirusTotal)**: If the VirusTotal API changes or becomes unavailable, URL scanning functionality may break or degrade.
+
+   * - Risk
+     - **Rate limiting of VirusTotal API**: High usage may exceed the free tier limits (4/min, 500/day), leading to delays or failures in scan results.
+
+   * - Risk
+     - **Frontend/backend coupling**: Tight integration assumptions (e.g., endpoint structure, error formats) can lead to breakage if either side evolves independently.
+
+   * - Technical Debt
+     - **No abstraction for database access**: Using `DbContext` directly increases coupling and reduces flexibility for changes in persistence logic.
+
+   * - Technical Debt
+     - **No API versioning**: All routes are versionless; introducing future versions will require refactoring if not planned early.
+
+   * - Technical Debt
+     - **Simultaneous login requests**: If multiple login attempts occur exactly at the same time for the same user, race conditions can lead to inconsistent authentication behavior or token conflicts.
+
 .. _section-glossary:
 
 Glossary
 ========
 
-+-----------------------+-----------------------------------------------+
-| Term                  | Definition                                    |
-+=======================+===============================================+
-| *<Term-1>*            | *<definition-1>*                              |
-+-----------------------+-----------------------------------------------+
-| *<Term-2>*            | *<definition-2>*                              |
-+-----------------------+-----------------------------------------------+
+Glossary
+========
 
-.. |arc42| image:: images/arc42-logo.png
+.. list-table::
+   :header-rows: 1
+   :widths: 25 75
+
+   * - **Term**
+     - **Definition**
+
+   * - API (Application Programming Interface)
+     - A set of HTTP endpoints through which external systems or frontends communicate with the backend application.
+
+   * - ASP.NET
+     - A web framework developed by Microsoft for building modern web applications and APIs, used in the backend of this project.
+
+   * - Clean Architecture
+     - A software design principle that separates concerns into distinct layers (e.g., domain, application, infrastructure) to enhance testability, flexibility, and maintainability.
+
+   * - DbContext
+     - The primary class in Entity Framework Core for interacting with the database using object-relational mapping (ORM).
+
+   * - Docker
+     - A platform for containerizing applications, allowing consistent development and deployment environments.
+
+   * - EF Core (Entity Framework Core)
+     - An open-source object-database mapper for .NET that enables developers to work with databases using .NET objects.
+
+   * - JWT (JSON Web Token)
+     - A compact, URL-safe token format used for securely transmitting information between parties as a JSON object. Used for authentication in the project.
+
+   * - MediatR
+     - A popular .NET library that implements the mediator pattern to decouple sending and handling of requests.
+
+   * - MS SQL
+     - A relational database management system developed by Microsoft, used to persist application data.
+
+   * - URL Shortener
+     - A service that converts long URLs into shorter, more manageable links, typically for ease of sharing and analytics.
+
+   * - VirusTotal
+     - An external security platform that analyzes URLs and files for potential threats using multiple antivirus engines.
+
+   * - Vue.js
+     - A JavaScript framework for building user interfaces, used for the frontend of this project.
+
+   * - Vite
+     - A fast frontend build tool that serves as the bundler and development server for the Vue.js application.
+
 
