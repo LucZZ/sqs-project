@@ -23,7 +23,7 @@ builder.Services.AddDomainServices(builder.Configuration)
 
 builder.Services.AddCors(options => {
     options.AddPolicy("AllowFrontend", policy => {
-        policy.WithOrigins("http://localhost:5173") //TODO
+        policy.WithOrigins("http://localhost:8080", "http://localhost:80") //TODO
               .AllowAnyMethod()
               .AllowAnyHeader();
     });

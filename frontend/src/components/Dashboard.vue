@@ -21,7 +21,7 @@
   
   <script lang="ts" setup>
   import { ref, onMounted } from 'vue';
-  import { api } from '@/api';
+  import { api } from '../api';
   
   interface UrlEntry {
     id: string;

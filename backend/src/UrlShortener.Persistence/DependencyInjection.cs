@@ -18,7 +18,7 @@ public static class DependencyInjection {
         var jwtOptions = configuration.GetOptions<JwtOptions>(JwtOptions.SectionName);
         var databaseOptions = configuration.GetOptions<DatabaseOptions>(DatabaseOptions.SectionName);
 
-        services.AddDbContext<ApplicationDbContext>(options => options.UseSqlServer(databaseOptions.ConnectionString));
+        services.AddDbContext<ApplicationDbContext>(options => options.UseSqlServer(databaseOptions.ConnectionString, sqlOptions => sqlOptions.EnableRetryOnFailure(5, TimeSpan.FromSeconds(30), null)));
 
         services.AddIdentityCore<User>().AddEntityFrameworkStores<ApplicationDbContext>().AddDefaultTokenProviders();
 
