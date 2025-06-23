@@ -48,20 +48,20 @@ Note: the backend will start with a 30 second delay, to ensure the database is u
 
 #### Backend (needs environment variables!)
 ```bash
-	dotnet run --project .\backend\src\UrlShortener.Web\UrlShortener.Web.csproj
+dotnet run --project .\backend\src\UrlShortener.Web\UrlShortener.Web.csproj
 ```
 
 #### Backend Unit Tests
 ```bash
-	dotnet test .\backend\tests\UrlShortener.UnitTests\
+dotnet test .\backend\tests\UrlShortener.UnitTests\
 ```
 
 #### Backend Integration Tests
 ```bash
-	dotnet test .\backend\tests\UrlShortener.IntegrationTests\
+dotnet test .\backend\tests\UrlShortener.IntegrationTests\
 ```
 
 #### Frontend E2E tests (needs the frontend running under http://localhost:8080)
 ```bash
-	dotnet test .\frontend\UrlShortener.E2ETests\
+dotnet test .\frontend\UrlShortener.E2ETests\
 ```
