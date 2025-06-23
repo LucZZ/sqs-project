@@ -36,6 +36,32 @@ docker-compose up --build
 ```
 The following services will start:
 
-frontend at http://localhost:5173
+frontend at http://localhost:8080
+
 backend API at http://localhost:5000
+
 sqlserver for persistent data
+
+Note: the backend will start with a 30 second delay, to ensure the database is up and running, or the migrations will fail. Sql healthchecks did not work in docker-compose.yml
+
+### Running services and tests individually
+
+#### Backend (needs environment variables!)
+```bash
+	dotnet run --project .\backend\src\UrlShortener.Web\UrlShortener.Web.csproj
+```
+
+#### Backend Unit Tests
+```bash
+	dotnet test .\backend\tests\UrlShortener.UnitTests\
+```
+
+#### Backend Integration Tests
+```bash
+	dotnet test .\backend\tests\UrlShortener.IntegrationTests\
+```
+
+#### Frontend E2E tests (needs the frontend running under http://localhost:8080)
+```bash
+	dotnet test .\frontend\UrlShortener.E2ETests\
+```
