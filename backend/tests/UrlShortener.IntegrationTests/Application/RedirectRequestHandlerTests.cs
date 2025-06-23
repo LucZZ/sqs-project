@@ -13,7 +13,7 @@ public class RedirectRequestHandlerTests : BaseIntegrationTest {
         //Arrange
         var url = DataSeeder.Urls.First();
 
-        var request = new RedirectRequest(url.ShortUrl);
+        var request = new RedirectRequest(url.Code);
 
         //Act
         var response = await Sender.Send(request);
