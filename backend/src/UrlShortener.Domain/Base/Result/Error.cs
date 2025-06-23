@@ -25,6 +25,7 @@ public class Error : IEquatable<Error> {
     public static readonly Error UrlAlreadyExists = new("Error.UrlAlreadyExists", "The url is already registered!", 409);
     public static readonly Error UrlBlocked = new("Error.UrlBlocked", "This url is blocked because fo security reasons!", 403);
     public static readonly Error UrlNotFound = new("Error.UrlNotFound", "This url was not found!", 404);
+    public static readonly Error UrlInvalid = new("Error.UrlInvalid", "Thsi url is invalid!", 400);
 
     public static readonly Error VirusTotalFailed = new("Error.VirusTotalFailed", "Virustotal api returned error", 400);
     public static readonly Error VirusTotalSuspicious = new("Error.VirusTotalSuspicious", "The URL has been flagged as unsafe by VirusTotal!", 400);

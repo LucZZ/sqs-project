@@ -42,7 +42,8 @@ public class TestDataSeeder {
 
         foreach (var user in Users) {
             for (int i = 0; i < 2; i++) {
-                var url = new Url(_faker.Internet.Url(), Guid.NewGuid().ToString("N"), user);
+                var guid = Guid.NewGuid().ToString("N");
+                var url = new Url(_faker.Internet.Url(), $"http://localhost:5000/api/urls/{guid}", guid, user);
                 Urls.Add(url);
             }
         }

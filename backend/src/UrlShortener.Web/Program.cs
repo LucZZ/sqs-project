@@ -8,6 +8,8 @@ using UrlShortener.Persistence.Database;
 using UrlShortener.Presentation;
 using UrlShortener.Web.Extensions;
 
+await Task.Delay(TimeSpan.FromSeconds(30));
+
 var builder = WebApplication.CreateBuilder(args);
 
 builder.Configuration.AddEnvironmentVariables();
@@ -23,7 +25,7 @@ builder.Services.AddDomainServices(builder.Configuration)
 
 builder.Services.AddCors(options => {
     options.AddPolicy("AllowFrontend", policy => {
-        policy.WithOrigins("http://localhost:8080", "http://localhost:80") //TODO
+        policy.WithOrigins("http://localhost:8080", "http://localhost:80")
               .AllowAnyMethod()
               .AllowAnyHeader();
     });

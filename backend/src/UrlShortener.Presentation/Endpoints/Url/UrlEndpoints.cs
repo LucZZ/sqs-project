@@ -16,16 +16,16 @@ public class UrlEndpoints : CarterModule {
     }
 
     public override void AddRoutes(IEndpointRouteBuilder app) {
-        app.MapPost("", async (UrlRequest urlRequest, ClaimsPrincipal claimsPrincipal, ISender sender) => {
-            var result = await sender.Send(new AddUrlRequest(urlRequest.Url, claimsPrincipal.Identity?.Name ?? ""));
+        app.MapPost("", async (UrlRequest urlRequest, ClaimsPrincipal claimsPrincipal, ISender sender, HttpContext httpContext) => {
+            var result = await sender.Send(new AddUrlRequest(urlRequest.Url, claimsPrincipal.Identity?.Name ?? "", httpContext.Request.Scheme, httpContext.Request.Host.Value ?? ""));
             return result.ToIResult();
         });
         app.MapGet("", async (ClaimsPrincipal claimsPrincipal, ISender sender) => {
             var result = await sender.Send(new GetUrlListRequest(claimsPrincipal.Identity?.Name ?? ""));
             return result.ToIResult();
         });
-        app.MapGet("/{shortUrl}", async (string shortUrl, ISender sender) => {
-            var result = await sender.Send(new RedirectRequest(shortUrl));
+        app.MapGet("/{code}", async (string code, ISender sender) => {
+            var result = await sender.Send(new RedirectRequest(code));
             if(result.IsFailure) {
                 result.ToIResult();
             }
