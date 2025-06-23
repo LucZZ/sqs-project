@@ -16,7 +16,7 @@ public class ResultExtensionsTests {
         var httpResult = result.ToIResult();
 
         // Assert
-        httpResult.ShouldBeOfType<Ok>();
+        httpResult.ShouldBeOfType<Ok<Result>>();
     }
 
     [Fact]
