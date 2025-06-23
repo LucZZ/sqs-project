@@ -62,7 +62,7 @@ async function addUrl() {
     const data = await res.json();
 
     if (data.isSuccess === true) {
-      urls.value.push(data.value);
+      fetchUrls();
       newUrl.value = '';
     } else {
       errorMessage.value = data.errors?.[0]?.message || 'URL shortening failed.';
