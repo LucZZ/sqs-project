@@ -67,7 +67,7 @@ async function addUrl() {
     } else {
       errorMessage.value = data.errors?.[0]?.message || 'URL shortening failed.';
     }
-  } catch (e) {
+  } catch {
     errorMessage.value = 'An unexpected error occurred.';
   }
 }

@@ -35,7 +35,7 @@ async function login() {
     } else {
       errorMessage.value = data.errors?.[0]?.message || 'Login failed.';
     }
-  } catch (e) {
+  } catch {
     errorMessage.value = 'An unexpected error occurred.';
   }
 }

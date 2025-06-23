@@ -37,7 +37,7 @@ async function register() {
     } else {
       errorMessage.value = data.errors?.[0]?.message || 'Registration failed.';
     }
-  } catch (e) {
+  } catch {
     errorMessage.value = 'An unexpected error occurred.';
   }
 }
