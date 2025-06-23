@@ -41,7 +41,7 @@ async function fetchUrls() {
     });
     const data = await res.json();
     urls.value = data.value;
-  } catch (e) {
+  } catch {
     errorMessage.value = 'Failed to load URLs.';
   }
 }
