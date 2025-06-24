@@ -64,5 +64,11 @@ dotnet test .\backend\tests\UrlShortener.IntegrationTests\
 
 #### Frontend E2E tests (needs the frontend running under http://localhost:8080)
 ```bash
-dotnet test .\frontend\UrlShortener.E2ETests\
+cd .\frontend\UrlShortener.E2ETests\
+
+dotnet build
+
+pwsh bin/Debug/net9.0/playwright.ps1 install
+
+dotnet test
 ```
