@@ -36,7 +36,7 @@ docker-compose up --build
 ```
 The following services will start:
 
-frontend at http://localhost:8080
+frontend at http://localhost:8080/register, http://localhost:8080/login (default)
 (Password requirements for registration: 1 digit, 1 lowercase, 1 uppercase, 1 non alphanumeric, length >=6)
 
 backend API at http://localhost:5000
