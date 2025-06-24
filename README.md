@@ -22,7 +22,7 @@ The frontend is a **Vue.js** app built with **TypeScript** and Vite.
 - [Docker Desktop](https://www.docker.com/products/docker-desktop)
 - The application integrates with the [VirusTotal API](https://www.virustotal.com/) to scan URLs.
 
-The configuration key needs to be defined in the `.env` file:
+The configuration key needs to be defined in the `.env` file: (The key provided for ease of use, but should be replaced by own ApiKey)
 
 ```env
 VirusTotal__ApiKey=""
